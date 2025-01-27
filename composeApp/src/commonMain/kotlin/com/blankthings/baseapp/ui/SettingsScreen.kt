@@ -3,27 +3,21 @@ package com.blankthings.baseapp.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.blankthings.baseapp.BottomNavBar
-import com.blankthings.baseapp.NavigationHost
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun HomeScreen(
+fun SettingsScreen(
     navController: NavHostController = rememberNavController()
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
-            text = "Home Screen",
+            text = "Settings Screen",
             textAlign = TextAlign.Center
         )
     }
@@ -31,8 +25,8 @@ fun HomeScreen(
 
 @Preview
 @Composable
-fun HomeScreenPreview() {
+fun SettingsScreenPreview() {
     MaterialTheme {
-        HomeScreen()
+        SettingsScreen()
     }
 }
