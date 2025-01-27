@@ -17,13 +17,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import baseapp.composeapp.generated.resources.BLANK
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
-import com.blankthings.baseapp.Routes
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
