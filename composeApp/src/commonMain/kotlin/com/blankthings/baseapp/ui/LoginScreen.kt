@@ -28,7 +28,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoginScreen(
-    navController: NavHostController = rememberNavController()
+    onLoginClick: () -> Unit
 ) {
     val blankString = stringResource(Res.string.BLANK)
     val usernameString = stringResource(Res.string.username)
@@ -58,10 +58,11 @@ fun LoginScreen(
             visualTransformation = PasswordVisualTransformation()
         )
 
-        OutlinedButton(onClick = { navController.navigate(Routes.Home.name) },
+        OutlinedButton(
+            onClick = onLoginClick,
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
-                text = Routes.Login.name,
+                text = stringResource(Res.string.password),
                 modifier = Modifier.fillMaxWidth().padding(5.dp),
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp

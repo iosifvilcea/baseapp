@@ -2,6 +2,7 @@ package com.blankthings.baseapp
 
 import AccountScreen
 import LoginScreen
+import SplashScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -54,11 +55,20 @@ fun NavigationHost(navHostController: NavHostController) {
         startDestination = Routes.Login,
         modifier = Modifier.fillMaxSize()
     ) {
+        composable<Routes.Splash> {
+            SplashScreen(navHostController)
+        }
         composable<Routes.Login> {
             LoginScreen(navHostController)
         }
         composable<Routes.Home> {
             HomeScreen(navHostController)
+        }
+        composable<Routes.CreateAccount> {
+            CreateAccount(navHostController)
+        }
+        composable<Routes.ForgotPassword> {
+            ForgotPasswordScreen(navHostController)
         }
         composable<Routes.Account> {
             AccountScreen(navHostController)

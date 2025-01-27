@@ -5,13 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun SplashScreen() {
+fun ForgotPasswordScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
-            text = "Splash Screen",
+            text = "Forgot Password Screen",
             textAlign = TextAlign.Center
         )
     }

@@ -11,21 +11,11 @@ import com.blankthings.baseapp.ui.HomeScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun AccountScreen(
-    navController: NavHostController = rememberNavController()
-) {
+fun AccountScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
             text = "Account Screen",
             textAlign = TextAlign.Center
         )
-    }
-}
-
-@Preview
-@Composable
-fun AccountScreenPreview() {
-    MaterialTheme {
-        AccountScreen()
     }
 }

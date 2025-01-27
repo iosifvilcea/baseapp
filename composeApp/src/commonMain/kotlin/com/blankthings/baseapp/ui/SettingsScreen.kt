@@ -12,21 +12,11 @@ import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun SettingsScreen(
-    navController: NavHostController = rememberNavController()
-) {
+fun SettingsScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
             text = "Settings Screen",
             textAlign = TextAlign.Center
         )
-    }
-}
-
-@Preview
-@Composable
-fun SettingsScreenPreview() {
-    MaterialTheme {
-        SettingsScreen()
     }
 }

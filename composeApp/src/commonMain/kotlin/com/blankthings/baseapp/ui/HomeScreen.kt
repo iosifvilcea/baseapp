@@ -16,9 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun HomeScreen(
-    navController: NavHostController = rememberNavController()
-) {
+fun HomeScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
             text = "Home Screen",
