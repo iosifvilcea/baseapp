@@ -28,10 +28,6 @@ import baseapp.composeapp.generated.resources.compose_multiplatform
 fun App() {
     val navController: NavHostController = rememberNavController()
     MaterialTheme {
-        Scaffold(
-            bottomBar = { BottomNavBar(navController) }
-        ) {
-            NavigationHost(navHostController = navController)
-        }
+        NavigationHost(navHostController = navController)
     }
 }

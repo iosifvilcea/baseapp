@@ -23,7 +23,7 @@ import baseapp.composeapp.generated.resources.BLANK
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
-import com.blankthings.baseapp.Screen
+import com.blankthings.baseapp.Routes
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -58,10 +58,10 @@ fun LoginScreen(
             visualTransformation = PasswordVisualTransformation()
         )
 
-        OutlinedButton(onClick = { },
+        OutlinedButton(onClick = { navController.navigate(Routes.Home.name) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
-                text = Screen.Login.name,
+                text = Routes.Login.name,
                 modifier = Modifier.fillMaxWidth().padding(5.dp),
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp

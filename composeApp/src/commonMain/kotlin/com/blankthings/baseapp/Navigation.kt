@@ -1,6 +1,7 @@
 package com.blankthings.baseapp
 
 import AccountScreen
+import LoginScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -17,7 +18,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -31,57 +31,39 @@ import baseapp.composeapp.generated.resources.onboarding
 import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.ui.HomeScreen
 import com.blankthings.baseapp.ui.SettingsScreen
+import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
-enum class Screen(val title: StringResource, val icon: ImageVector) {
-    Home(Res.string.home, Icons.Default.Home),
-    OnBoarding(Res.string.onboarding, Icons.Default.Face),
-    Login(Res.string.login, Icons.Default.AccountBox),
-    CreateAccount(Res.string.create_account, Icons.Default.Create),
-    ForgotPassword(Res.string.forgot_password, Icons.Default.AccountCircle),
-    Account(Res.string.account, Icons.Default.Person),
-    Settings(Res.string.settings, Icons.Default.Settings)
-}
-
-@Composable
-fun BottomNavBar(navHostController: NavHostController) {
-    BottomNavigation {
-        BottomNavigationItem(
-            icon = { Icon(imageVector = Screen.Home.icon, contentDescription = Screen.Home.name) },
-            selected = true,
-            label = { Text(text = stringResource(Screen.Home.title)) },
-            onClick = { navHostController.navigate(Screen.Home.name) }
-        )
-        BottomNavigationItem(
-            icon = { Icon(imageVector = Screen.Account.icon, contentDescription = Screen.Account.name) },
-            selected = false,
-            label = { Text(text = stringResource(Screen.Account.title)) },
-            onClick = { navHostController.navigate(Screen.Account.name) }
-        )
-        BottomNavigationItem(
-            icon = { Icon(imageVector = Screen.Settings.icon, contentDescription = Screen.Settings.name) },
-            selected = false,
-            label = { Text(text = stringResource(Screen.Settings.title)) },
-            onClick = { navHostController.navigate(Screen.Settings.name) }
-        )
-    }
+@Serializable
+sealed interface Routes {
+    @Serializable data object Splash: Routes
+    @Serializable data object Home: Routes
+    @Serializable data object OnBoarding: Routes
+    @Serializable data object Login: Routes
+    @Serializable data object CreateAccount: Routes
+    @Serializable data object ForgotPassword: Routes
+    @Serializable data object Account: Routes
+    @Serializable data object Settings: Routes
 }
 
 @Composable
 fun NavigationHost(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.Home.name,
+        startDestination = Routes.Login,
         modifier = Modifier.fillMaxSize()
     ) {
-        composable(route = Screen.Home.name) {
+        composable<Routes.Login> {
+            LoginScreen(navHostController)
+        }
+        composable<Routes.Home> {
             HomeScreen(navHostController)
         }
-        composable(route = Screen.Account.name) {
+        composable<Routes.Account> {
             AccountScreen(navHostController)
         }
-        composable(route = Screen.Settings.name) {
+        composable<Routes.Settings> {
             SettingsScreen(navHostController)
         }
     }
