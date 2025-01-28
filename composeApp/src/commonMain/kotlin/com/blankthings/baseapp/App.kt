@@ -1,6 +1,8 @@
 package com.blankthings.baseapp
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.BottomNavigation
@@ -34,9 +36,14 @@ fun App() {
     MaterialTheme {
         Scaffold(
             bottomBar = {
-                if (Routes.shouldShowBottomBar(currentRoute)) {
-                    bottomNav(navController = navHostController)
-                }
+                AnimatedVisibility(
+                    visible = Routes.shouldShowBottomBar(currentRoute),
+                    enter = slideInVertically(initialOffsetY = { it }),
+                    exit = slideOutVertically(targetOffsetY = { it }),
+                    content = {
+                        bottomNav(navController = navHostController)
+                    }
+                )
             }
         ) {
             NavigationHost(navHostController = navHostController)

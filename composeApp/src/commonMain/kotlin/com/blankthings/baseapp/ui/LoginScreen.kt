@@ -3,6 +3,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -24,6 +25,7 @@ import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun LoginScreen(
@@ -92,5 +94,13 @@ fun LoginScreen(
                 fontSize = 20.sp
             )
         }
+    }
+}
+
+@Composable
+@Preview
+fun LoginScreenPreview() {
+    MaterialTheme {
+        LoginScreen({}, {}, {})
     }
 }
