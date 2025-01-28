@@ -8,6 +8,7 @@ import SplashScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,6 +19,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface Routes {
+    companion object {
+        fun shouldShowBottomBar(route: String?): Boolean {
+            // TODO: Ugly. Fix. 
+            return if (route?.contains(Home.toString()) == true) true
+            else if (route?.contains(Account.toString()) == true) true
+            else if (route?.contains(Settings.toString()) == true) true
+            else false
+        }
+    }
+
     @Serializable data object Splash: Routes
     @Serializable data object OnBoarding: Routes
     @Serializable data object Login: Routes
@@ -53,9 +64,10 @@ fun NavigationHost(navHostController: NavHostController) {
         composable<Routes.ForgotPassword> {
             ForgotPasswordScreen()
         }
+
         navigation<Routes.Authorized>(startDestination = Routes.Home) {
             composable<Routes.Home> {
-                HomeScreen()
+                HomeScreen(onNavigateToRoute = navHostController::navigate)
             }
             composable<Routes.Account> {
                 AccountScreen()

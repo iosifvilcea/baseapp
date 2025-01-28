@@ -2,7 +2,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
@@ -60,7 +59,7 @@ fun LoginScreen(
             visualTransformation = PasswordVisualTransformation()
         )
 
-        Button(
+        OutlinedButton(
             onClick = onForgotPasswordClick,
             modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
