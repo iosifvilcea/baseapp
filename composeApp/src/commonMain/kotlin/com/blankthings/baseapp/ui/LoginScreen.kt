@@ -2,6 +2,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
@@ -19,13 +20,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import baseapp.composeapp.generated.resources.BLANK
 import baseapp.composeapp.generated.resources.Res
+import baseapp.composeapp.generated.resources.create_account
+import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoginScreen(
-    onLoginClick: () -> Unit
+    onLoginClick: () -> Unit,
+    onCreateAccountClick: () -> Unit,
+    onForgotPasswordClick: () -> Unit
 ) {
     val blankString = stringResource(Res.string.BLANK)
     val usernameString = stringResource(Res.string.username)
@@ -55,11 +60,34 @@ fun LoginScreen(
             visualTransformation = PasswordVisualTransformation()
         )
 
+        Button(
+            onClick = onForgotPasswordClick,
+            modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
+        ) {
+            Text(
+                text = "Forgot Password",
+                modifier = Modifier.fillMaxWidth().padding(5.dp),
+                textAlign = TextAlign.Center,
+                fontSize = 20.sp
+            )
+        }
+
         OutlinedButton(
             onClick = onLoginClick,
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
-                text = stringResource(Res.string.password),
+                text = stringResource(Res.string.login),
+                modifier = Modifier.fillMaxWidth().padding(5.dp),
+                textAlign = TextAlign.Center,
+                fontSize = 20.sp
+            )
+        }
+
+        OutlinedButton(
+            onClick = onCreateAccountClick,
+            modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
+            Text(
+                text = stringResource(Res.string.create_account),
                 modifier = Modifier.fillMaxWidth().padding(5.dp),
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp

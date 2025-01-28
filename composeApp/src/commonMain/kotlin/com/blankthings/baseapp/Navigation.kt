@@ -34,14 +34,18 @@ sealed interface Routes {
 fun NavigationHost(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = Routes.Login,
+        startDestination = Routes.Splash,
         modifier = Modifier.fillMaxSize()
     ) {
         composable<Routes.Splash> {
-            SplashScreen()
+            SplashScreen { navHostController.navigate(Routes.Login) }
         }
         composable<Routes.Login> {
-            LoginScreen { navHostController.navigate(Routes.Home) }
+            LoginScreen(
+                onLoginClick = { navHostController.navigate(Routes.Authorized) },
+                onCreateAccountClick = { navHostController.navigate(Routes.CreateAccount) },
+                onForgotPasswordClick = { navHostController.navigate(Routes.ForgotPassword) }
+            )
         }
         composable<Routes.CreateAccount> {
             CreateAccountScreen()
