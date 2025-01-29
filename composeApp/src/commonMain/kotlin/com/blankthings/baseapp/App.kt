@@ -58,17 +58,38 @@ fun bottomNav(navController: NavHostController) {
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "") },
             selected = true,
-            onClick = { navController.navigate(Routes.Home) }
+            onClick = {
+                navController.navigate(Routes.Home) {
+                    launchSingleTop = true
+                    popUpTo<Routes.Home> {
+                        inclusive = true
+                    }
+                }
+            }
         )
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Person, contentDescription = "") },
             selected = false,
-            onClick = { navController.navigate(Routes.Account) }
+            onClick = {
+                navController.navigate(Routes.Account)  {
+                    launchSingleTop = true
+                    popUpTo<Routes.Account> {
+                        inclusive = true
+                    }
+                }
+            }
         )
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Settings, contentDescription = "") },
             selected = false,
-            onClick = { navController.navigate(Routes.Settings) }
+            onClick = {
+                navController.navigate(Routes.Settings) {
+                    launchSingleTop = true
+                    popUpTo<Routes.Settings> {
+                        inclusive = true
+                    }
+                }
+            }
         )
     }
 }
