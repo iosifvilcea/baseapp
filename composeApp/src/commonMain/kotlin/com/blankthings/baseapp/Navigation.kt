@@ -53,7 +53,6 @@ fun NavigationHost(navHostController: NavHostController) {
         composable<Routes.ForgotPassword> {
             ForgotPasswordScreen()
         }
-
         navigation<Routes.Authorized>(startDestination = Routes.Home) {
             composable<Routes.Home> {
                 HomeScreen(onNavigateToRoute = navHostController::navigate)
