@@ -15,7 +15,6 @@ import androidx.navigation.compose.navigation
 import com.blankthings.baseapp.ui.HomeScreen
 import com.blankthings.baseapp.ui.SettingsScreen
 import kotlinx.serialization.Serializable
-import org.jetbrains.compose.resources.stringResource
 
 @Serializable
 sealed interface Routes {
@@ -60,7 +59,9 @@ fun NavigationHost(navHostController: NavHostController) {
                 HomeScreen(onNavigateToRoute = navHostController::navigate)
             }
             composable<Routes.Account> {
-                AccountScreen()
+                AccountScreen {
+                    navHostController.popBackStack(route = Routes.Login, inclusive = false)
+                }
             }
             composable<Routes.Settings> {
                 SettingsScreen()
