@@ -42,20 +42,19 @@ fun LoginScreen(
     onForgotPasswordClick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    viewModel.reset()
     when (uiState) {
         is LoadingState.Loading -> {
             // TODO: loading ..
-            println("Loading ...")
         }
-        is LoadingState.Success -> onLoginClick.invoke()
+        is LoadingState.Success -> {
+            onLoginClick.invoke()
+        }
         is LoadingState.Failure -> {
             // TODO: Handle error.
-            println("Error!1!!1")
         }
-        else -> {
-            // TODO: Log this.
-            println("Doing something...")
-        }
+        is LoadingState.Empty -> { /* Do nothing */ }
     }
 
     val blank = stringResource(Res.string.BLANK)

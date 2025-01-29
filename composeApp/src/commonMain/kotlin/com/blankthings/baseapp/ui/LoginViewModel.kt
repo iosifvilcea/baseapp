@@ -9,13 +9,14 @@ class LoginViewModel: ViewModel() {
     private val _uiState = MutableStateFlow<LoadingState>(LoadingState.Empty)
     val uiState: StateFlow<LoadingState> = _uiState.asStateFlow()
 
+    fun reset() {
+        _uiState.value = LoadingState.Empty
+    }
+
     fun login(username: String, password: String) {
         _uiState.value = LoadingState.Loading
 
         // TODO: Some work
-        println("Logging in with...")
-        println("username: " + username)
-        println("password: " + password)
 
         _uiState.value = LoadingState.Success
     }
