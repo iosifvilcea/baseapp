@@ -50,7 +50,9 @@ fun NavigationHost(navHostController: NavHostController) {
             CreateAccountScreen()
         }
         composable<Routes.ForgotPassword> {
-            ForgotPasswordScreen()
+            ForgotPasswordScreen {
+                navHostController.popBackStack(route = Routes.Login, inclusive = false)
+            }
         }
         navigation<Routes.Authorized>(startDestination = Routes.Home) {
             composable<Routes.Home> {
