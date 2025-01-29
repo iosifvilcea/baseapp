@@ -8,11 +8,14 @@ import SplashScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.blankthings.baseapp.ui.HomeScreen
+import com.blankthings.baseapp.ui.LoginViewModel
 import com.blankthings.baseapp.ui.SettingsScreen
 import kotlinx.serialization.Serializable
 
@@ -39,6 +42,7 @@ fun NavigationHost(navHostController: NavHostController) {
         composable<Routes.Splash> {
             SplashScreen { navHostController.navigate(Routes.Login) }
         }
+
         composable<Routes.Login> {
             LoginScreen(
                 onLoginClick = { navHostController.navigate(Routes.Authorized) },

@@ -2,15 +2,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -18,55 +21,74 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import baseapp.composeapp.generated.resources.BLANK
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.create_account
+import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
+import com.blankthings.baseapp.ui.LoadingState
+import com.blankthings.baseapp.ui.LoginViewModel
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun LoginScreen(
+    viewModel: LoginViewModel = viewModel(),
     onLoginClick: () -> Unit,
     onCreateAccountClick: () -> Unit,
     onForgotPasswordClick: () -> Unit
 ) {
-    val blankString = stringResource(Res.string.BLANK)
-    val usernameString = stringResource(Res.string.username)
-    val passwordString = stringResource(Res.string.password)
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    when (uiState) {
+        is LoadingState.Loading -> {
+            // TODO: loading ..
+            println("Loading ...")
+        }
+        is LoadingState.Success -> onLoginClick.invoke()
+        is LoadingState.Failure -> {
+            // TODO: Handle error.
+            println("Error!1!!1")
+        }
+        else -> {
+            // TODO: Log this.
+            println("Doing something...")
+        }
+    }
 
-    val username = remember { mutableStateOf(blankString) }
-    val password = remember { mutableStateOf(blankString) }
+    val blank = stringResource(Res.string.BLANK)
+    val usernameLabel = stringResource(Res.string.username)
+    val passwordLabel = stringResource(Res.string.password)
 
-    Column(modifier = Modifier
-        .fillMaxHeight()
-        .padding(40.dp)) {
+    val username = remember { mutableStateOf(blank) }
+    val password = remember { mutableStateOf(blank) }
 
+    Column(modifier = Modifier.fillMaxHeight().padding(40.dp)) {
         OutlinedTextField(
             value = username.value,
             onValueChange = { username.value = it },
-            leadingIcon = { Icon(Icons.Default.Person, contentDescription = usernameString) },
-            label = { Text(text = usernameString) },
+            leadingIcon = { Icon(Icons.Default.Person, contentDescription = usernameLabel) },
+            label = { Text(text = usernameLabel) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
         )
 
         OutlinedTextField(
             value = password.value,
             onValueChange = { password.value = it },
-            leadingIcon = { Icon(Icons.Default.Info, contentDescription = passwordString) },
-            label = { Text(text = passwordString) },
+            leadingIcon = { Icon(Icons.Default.Info, contentDescription = passwordLabel) },
+            label = { Text(text = passwordLabel) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp),
             visualTransformation = PasswordVisualTransformation()
         )
 
-        OutlinedButton(
+        TextButton(
             onClick = onForgotPasswordClick,
-            modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
+            modifier = Modifier.wrapContentSize().padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
             Text(
-                text = "Forgot Password",
+                text = stringResource(Res.string.forgot_password),
                 modifier = Modifier.fillMaxWidth().padding(5.dp),
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp
@@ -74,7 +96,7 @@ fun LoginScreen(
         }
 
         OutlinedButton(
-            onClick = onLoginClick,
+            onClick = { viewModel.login(usernameLabel, passwordLabel) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
                 text = stringResource(Res.string.login),
@@ -94,13 +116,5 @@ fun LoginScreen(
                 fontSize = 20.sp
             )
         }
-    }
-}
-
-@Composable
-@Preview
-fun LoginScreenPreview() {
-    MaterialTheme {
-        LoginScreen({}, {}, {})
     }
 }

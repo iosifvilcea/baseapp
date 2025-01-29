@@ -14,12 +14,14 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.account
 import baseapp.composeapp.generated.resources.home
 import baseapp.composeapp.generated.resources.settings
+import com.blankthings.baseapp.ui.LoginViewModel
 import com.blankthings.baseapp.utils.Constants
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
