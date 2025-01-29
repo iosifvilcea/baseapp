@@ -1,5 +1,6 @@
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,10 +25,8 @@ fun ForgotPasswordScreen(onForgotPasswordClick: () -> Unit) {
     val email = remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxHeight()
+            .padding(40.dp)
     ) {
 
         Text(
@@ -48,7 +47,7 @@ fun ForgotPasswordScreen(onForgotPasswordClick: () -> Unit) {
             modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
             Text(
-                text = "Do Something..",
+                text = "Send",
                 modifier = Modifier.fillMaxWidth().padding(5.dp),
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp
