@@ -19,7 +19,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface Routes {
     @Serializable data object Splash: Routes
-    @Serializable data object OnBoarding: Routes
     @Serializable data object Login: Routes
     @Serializable data object CreateAccount: Routes
     @Serializable data object ForgotPassword: Routes
