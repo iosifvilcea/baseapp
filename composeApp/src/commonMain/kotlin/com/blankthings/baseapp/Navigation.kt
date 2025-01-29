@@ -15,19 +15,10 @@ import androidx.navigation.compose.navigation
 import com.blankthings.baseapp.ui.HomeScreen
 import com.blankthings.baseapp.ui.SettingsScreen
 import kotlinx.serialization.Serializable
+import org.jetbrains.compose.resources.stringResource
 
 @Serializable
 sealed interface Routes {
-    companion object {
-        fun shouldShowBottomBar(route: String?): Boolean {
-            // TODO: Ugly. Fix.
-            return if (route?.contains(Home.toString()) == true) true
-            else if (route?.contains(Account.toString()) == true) true
-            else if (route?.contains(Settings.toString()) == true) true
-            else false
-        }
-    }
-
     @Serializable data object Splash: Routes
     @Serializable data object OnBoarding: Routes
     @Serializable data object Login: Routes
