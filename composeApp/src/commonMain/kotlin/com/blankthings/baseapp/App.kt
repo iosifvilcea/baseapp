@@ -34,7 +34,7 @@ fun App() {
     val currentRoute = navHostController
         .currentBackStackEntryFlow
         .collectAsState(initial = navHostController.currentBackStackEntry)
-        .value?.destination?.route
+        .value?.destination?.route ?: Routes.Login.toString()
 
     MaterialTheme {
         Scaffold(
@@ -97,15 +97,10 @@ fun bottomNav(navController: NavHostController) {
 }
 
 @Composable
-fun shouldShowBottomBar(route: String?): Boolean {
-    route?.let {
-        return when (route.substringAfterLast(Constants.DELIMITER_DOT)) {
-            stringResource(Res.string.home) -> true
-            stringResource(Res.string.account) -> true
-            stringResource(Res.string.settings) -> true
-            else -> false
-        }
-    }.apply {
-        return false
+fun shouldShowBottomBar(route: String): Boolean =
+    when (route.substringAfterLast(Constants.DELIMITER_DOT)) {
+        stringResource(Res.string.home) -> true
+        stringResource(Res.string.account) -> true
+        stringResource(Res.string.settings) -> true
+        else -> false
     }
-}
