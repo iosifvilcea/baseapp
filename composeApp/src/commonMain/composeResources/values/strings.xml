@@ -11,5 +11,9 @@
     <string name="username">username</string>
     <string name="password">password</string>
 
-    <string name="BLANK"></string>
+    <string name="error_invalid_email">Error: Invalid Email</string>
+    <string name="error_invalid_password_length">Error: Invalid Password Length</string>
+    <string name="error_server_failed">Error: Server Failed</string>
+
+    <string name="BLANK"> </string>
 </resources>

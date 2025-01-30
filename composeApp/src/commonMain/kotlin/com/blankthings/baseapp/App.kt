@@ -14,14 +14,16 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.account
 import baseapp.composeapp.generated.resources.home
 import baseapp.composeapp.generated.resources.settings
-import com.blankthings.baseapp.ui.LoginViewModel
+import com.blankthings.baseapp.navigation.NavActions
+import com.blankthings.baseapp.navigation.NavigationHost
+import com.blankthings.baseapp.navigation.Routes
 import com.blankthings.baseapp.utils.Constants
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -30,6 +32,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     val navHostController: NavHostController = rememberNavController()
+    val navAction = remember(navHostController) {
+        NavActions(navHostController)
+    }
 
     val currentRoute = navHostController
         .currentBackStackEntryFlow
@@ -43,9 +48,7 @@ fun App() {
                     visible = shouldShowBottomBar(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it }),
-                    content = {
-                        bottomNav(navController = navHostController)
-                    }
+                    content = { bottomNav(navAction) }
                 )
             }
         ) {
@@ -55,43 +58,22 @@ fun App() {
 }
 
 @Composable
-fun bottomNav(navController: NavHostController) {
+fun bottomNav(navActions: NavActions) {
     BottomNavigation {
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "") },
             selected = true,
-            onClick = {
-                navController.navigate(Routes.Home) {
-                    launchSingleTop = true
-                    popUpTo<Routes.Home> {
-                        inclusive = true
-                    }
-                }
-            }
+            onClick = navActions.navigateToHome
         )
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Person, contentDescription = "") },
             selected = false,
-            onClick = {
-                navController.navigate(Routes.Account)  {
-                    launchSingleTop = true
-                    popUpTo<Routes.Account> {
-                        inclusive = true
-                    }
-                }
-            }
+            onClick = navActions.navigateToAccount
         )
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Settings, contentDescription = "") },
             selected = false,
-            onClick = {
-                navController.navigate(Routes.Settings) {
-                    launchSingleTop = true
-                    popUpTo<Routes.Settings> {
-                        inclusive = true
-                    }
-                }
-            }
+            onClick = navActions.navigateToSettings
         )
     }
 }

@@ -1,36 +1,21 @@
-package com.blankthings.baseapp
+package com.blankthings.baseapp.navigation
 
 import AccountScreen
 import CreateAccountScreen
 import ForgotPasswordScreen
-import LoginScreen
 import SplashScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraph
-import androidx.navigation.NavGraphBuilder
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.blankthings.baseapp.ui.LoginRoute
 import com.blankthings.baseapp.ui.HomeScreen
 import com.blankthings.baseapp.ui.LoginViewModel
 import com.blankthings.baseapp.ui.SettingsScreen
-import kotlinx.serialization.Serializable
-
-@Serializable
-sealed interface Routes {
-    @Serializable data object Splash: Routes
-    @Serializable data object Login: Routes
-    @Serializable data object CreateAccount: Routes
-    @Serializable data object ForgotPassword: Routes
-
-    @Serializable data object Authorized: Routes
-    @Serializable data object Home: Routes
-    @Serializable data object Account: Routes
-    @Serializable data object Settings: Routes
-}
 
 @Composable
 fun NavigationHost(navHostController: NavHostController) {
@@ -44,10 +29,11 @@ fun NavigationHost(navHostController: NavHostController) {
         }
 
         composable<Routes.Login> {
-            LoginScreen(
-                onLoginClick = { navHostController.navigate(Routes.Authorized) },
-                onCreateAccountClick = { navHostController.navigate(Routes.CreateAccount) },
-                onForgotPasswordClick = { navHostController.navigate(Routes.ForgotPassword) }
+            val viewModel: LoginViewModel = viewModel(factory = LoginViewModel.provideFactory())
+            LoginRoute(
+                viewModel,
+                { navHostController.navigate(Routes.CreateAccount) },
+                { navHostController.navigate(Routes.ForgotPassword) }
             )
         }
         composable<Routes.CreateAccount> {

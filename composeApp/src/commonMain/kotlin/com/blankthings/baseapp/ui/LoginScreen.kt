@@ -12,8 +12,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -21,8 +19,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import baseapp.composeapp.generated.resources.BLANK
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.create_account
@@ -30,33 +26,15 @@ import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
-import com.blankthings.baseapp.ui.LoadingState
-import com.blankthings.baseapp.ui.LoginViewModel
+import com.blankthings.baseapp.ui.HomeUiState
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = viewModel(),
-    onLoginClick: () -> Unit,
+    homeUiState: HomeUiState,
     onCreateAccountClick: () -> Unit,
     onForgotPasswordClick: () -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    viewModel.reset()
-    when (uiState) {
-        is LoadingState.Loading -> {
-            // TODO: loading ..
-        }
-        is LoadingState.Success -> {
-            onLoginClick.invoke()
-        }
-        is LoadingState.Failure -> {
-            // TODO: Handle error.
-        }
-        is LoadingState.Empty -> { /* Do nothing */ }
-    }
-
     val blank = stringResource(Res.string.BLANK)
     val usernameLabel = stringResource(Res.string.username)
     val passwordLabel = stringResource(Res.string.password)
@@ -95,7 +73,7 @@ fun LoginScreen(
         }
 
         OutlinedButton(
-            onClick = { viewModel.login(usernameLabel, passwordLabel) },
+            onClick = {},
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
                 text = stringResource(Res.string.login),
