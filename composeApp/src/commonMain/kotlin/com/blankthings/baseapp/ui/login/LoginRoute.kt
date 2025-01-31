@@ -1,6 +1,5 @@
-package com.blankthings.baseapp.ui
+package com.blankthings.baseapp.ui.login
 
-import LoginScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle

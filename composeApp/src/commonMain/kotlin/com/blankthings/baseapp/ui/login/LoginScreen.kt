@@ -1,3 +1,5 @@
+package com.blankthings.baseapp.ui.login
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +28,6 @@ import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
-import com.blankthings.baseapp.ui.AuthUiState
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

@@ -1,4 +1,4 @@
-package com.blankthings.baseapp.ui
+package com.blankthings.baseapp.ui.login
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
