@@ -17,9 +17,25 @@ sealed interface Routes {
     @Serializable data object Settings: Routes
 }
 
-class NavActions(navHostController: NavHostController) {
+class NavActions(val navHostController: NavHostController) {
+    val navigateToForgotPassword: () -> Unit = {
+        navHostController.navigate(Routes.ForgotPassword)
+    }
+
+    val navigateToCreateAccount: () -> Unit = {
+        navHostController.navigate(Routes.CreateAccount)
+    }
+
+    val navigateToLogin: () -> Unit = {
+        navHostController.navigate(Routes.Login)
+    }
+
+    val navigateToAuthorized: () -> Unit = {
+        navHostController.navigate(Routes.Authorized)
+    }
+
     val navigateToHome: () -> Unit = {
-        navHostController.navigate(Routes) {
+        navHostController.navigate(Routes.Home) {
             popUpTo(navHostController.graph.findStartDestination().id) {
                 saveState = true
             }

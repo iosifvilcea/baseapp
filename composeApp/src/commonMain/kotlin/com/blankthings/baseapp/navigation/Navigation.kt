@@ -8,31 +8,31 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.blankthings.baseapp.ui.LoginRoute
 import com.blankthings.baseapp.ui.HomeScreen
+import com.blankthings.baseapp.ui.LoginRoute
 import com.blankthings.baseapp.ui.LoginViewModel
 import com.blankthings.baseapp.ui.SettingsScreen
 
 @Composable
-fun NavigationHost(navHostController: NavHostController) {
+fun NavigationHost(navActions: NavActions) {
     NavHost(
-        navController = navHostController,
+        navController = navActions.navHostController,
         startDestination = Routes.Splash,
         modifier = Modifier.fillMaxSize()
     ) {
         composable<Routes.Splash> {
-            SplashScreen { navHostController.navigate(Routes.Login) }
+            SplashScreen {
+                navActions.navigateToLogin.invoke()
+            }
         }
-
         composable<Routes.Login> {
             val viewModel: LoginViewModel = viewModel()
             LoginRoute(
                 viewModel,
-                navigateToRoute = navHostController::navigate
+                navActions = navActions
             )
         }
         composable<Routes.CreateAccount> {
@@ -40,16 +40,16 @@ fun NavigationHost(navHostController: NavHostController) {
         }
         composable<Routes.ForgotPassword> {
             ForgotPasswordScreen {
-                navHostController.popBackStack(route = Routes.Login, inclusive = false)
+                navActions.navigateToLogin.invoke()
             }
         }
         navigation<Routes.Authorized>(startDestination = Routes.Home) {
             composable<Routes.Home> {
-                HomeScreen(onNavigateToRoute = navHostController::navigate)
+                HomeScreen()
             }
             composable<Routes.Account> {
                 AccountScreen {
-                    navHostController.popBackStack(route = Routes.Login, inclusive = false)
+                    navActions.navigateToLogin.invoke()
                 }
             }
             composable<Routes.Settings> {

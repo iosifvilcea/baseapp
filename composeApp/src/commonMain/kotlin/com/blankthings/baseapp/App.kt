@@ -52,7 +52,7 @@ fun App() {
                 )
             }
         ) {
-            NavigationHost(navHostController = navHostController)
+            NavigationHost(navAction)
         }
     }
 }

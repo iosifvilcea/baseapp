@@ -4,12 +4,12 @@ import LoginScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.blankthings.baseapp.navigation.Routes
+import com.blankthings.baseapp.navigation.NavActions
 
 @Composable
 fun LoginRoute(
     loginViewModel: LoginViewModel,
-    navigateToRoute: (Routes) -> Unit,
+    navActions: NavActions
 ) {
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -19,14 +19,14 @@ fun LoginRoute(
         AuthUiState.Default -> {
             LoginScreen(
                 authUiState = uiState,
-                onForgotAccountClicked = { navigateToRoute.invoke(Routes.ForgotPassword) },
+                onForgotAccountClicked = navActions.navigateToForgotPassword,
                 onLoginClicked = loginViewModel::login,
-                onCreateAccountClicked = { navigateToRoute.invoke(Routes.CreateAccount) },
+                onCreateAccountClicked = navActions.navigateToCreateAccount,
             )
         }
         AuthUiState.Loading -> {
             /*TODO*/
         }
-        AuthUiState.LoginSuccess -> navigateToRoute.invoke(Routes.Authorized)
+        AuthUiState.LoginSuccess -> navActions.navigateToAuthorized.invoke()
     }
 }

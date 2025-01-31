@@ -11,9 +11,7 @@ import com.blankthings.baseapp.navigation.Routes
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun HomeScreen(
-    onNavigateToRoute: (Routes) -> Unit
-) {
+fun HomeScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
             text = "Home Screen",
@@ -26,8 +24,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {
-        HomeScreen(
-            onNavigateToRoute = {}
-        )
+        HomeScreen()
     }
 }
