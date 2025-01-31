@@ -32,8 +32,7 @@ fun NavigationHost(navHostController: NavHostController) {
             val viewModel: LoginViewModel = viewModel()
             LoginRoute(
                 viewModel,
-                { navHostController.navigate(Routes.CreateAccount) },
-                { navHostController.navigate(Routes.ForgotPassword) }
+                navigateToRoute = navHostController::navigate
             )
         }
         composable<Routes.CreateAccount> {

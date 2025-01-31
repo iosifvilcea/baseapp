@@ -15,5 +15,5 @@
     <string name="error_invalid_password_length">Error: Invalid Password Length</string>
     <string name="error_server_failed">Error: Server Failed</string>
 
-    <string name="BLANK"> </string>
+    <string name="BLANK"></string>
 </resources>

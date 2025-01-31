@@ -1,22 +1,25 @@
 package com.blankthings.baseapp.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.CreationExtras
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlin.reflect.KClass
 
-sealed interface HomeUiState {
-    object Loading: HomeUiState
+sealed interface AuthUiState {
+    data object Default: AuthUiState
+    data object Loading: AuthUiState
+    data object LoginSuccess: AuthUiState
 }
 
 class LoginViewModel: ViewModel() {
-    private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
-    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<AuthUiState>(AuthUiState.Default)
+    val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
+
+    fun reset() {
+        _uiState.value = AuthUiState.Default
+    }
 
     fun login(username: String, password: String) {
-        // TODO:
+        _uiState.value = AuthUiState.LoginSuccess
     }
 }

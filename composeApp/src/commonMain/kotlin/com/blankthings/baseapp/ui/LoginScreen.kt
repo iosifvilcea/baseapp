@@ -26,14 +26,15 @@ import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
-import com.blankthings.baseapp.ui.HomeUiState
+import com.blankthings.baseapp.ui.AuthUiState
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoginScreen(
-    homeUiState: HomeUiState,
-    onCreateAccountClick: () -> Unit,
-    onForgotPasswordClick: () -> Unit
+    authUiState: AuthUiState,
+    onForgotAccountClicked: () -> Unit = {},
+    onLoginClicked: (String, String) -> Unit = { _, _ -> },
+    onCreateAccountClicked: () -> Unit = {},
 ) {
     val blank = stringResource(Res.string.BLANK)
     val usernameLabel = stringResource(Res.string.username)
@@ -61,7 +62,7 @@ fun LoginScreen(
         )
 
         TextButton(
-            onClick = onForgotPasswordClick,
+            onClick = onForgotAccountClicked,
             modifier = Modifier.wrapContentSize().padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
             Text(
@@ -73,7 +74,7 @@ fun LoginScreen(
         }
 
         OutlinedButton(
-            onClick = {},
+            onClick = { onLoginClicked.invoke(username.value, password.value) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
                 text = stringResource(Res.string.login),
@@ -84,7 +85,7 @@ fun LoginScreen(
         }
 
         OutlinedButton(
-            onClick = onCreateAccountClick,
+            onClick = onCreateAccountClicked,
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
                 text = stringResource(Res.string.create_account),
