@@ -29,7 +29,7 @@ fun NavigationHost(navHostController: NavHostController) {
         }
 
         composable<Routes.Login> {
-            val viewModel: LoginViewModel = viewModel(factory = LoginViewModel.provideFactory())
+            val viewModel: LoginViewModel = viewModel()
             LoginRoute(
                 viewModel,
                 { navHostController.navigate(Routes.CreateAccount) },

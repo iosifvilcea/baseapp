@@ -19,13 +19,4 @@ class LoginViewModel: ViewModel() {
     fun login(username: String, password: String) {
         // TODO:
     }
-
-    companion object {
-        fun provideFactory(): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
-                return LoginViewModel() as T
-            }
-        }
-    }
 }
