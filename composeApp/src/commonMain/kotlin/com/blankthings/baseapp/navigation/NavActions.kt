@@ -1,6 +1,5 @@
 package com.blankthings.baseapp.navigation
 
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import kotlinx.serialization.Serializable
 
@@ -19,7 +18,10 @@ sealed interface Routes {
 
 class NavActions(val navHostController: NavHostController) {
     val navigateToForgotPassword: () -> Unit = {
-        navHostController.navigate(Routes.ForgotPassword)
+        navHostController.navigate(Routes.ForgotPassword) {
+            popUpTo<Routes.Login>()
+            launchSingleTop = true
+        }
     }
 
     val navigateToCreateAccount: () -> Unit = {
@@ -27,7 +29,10 @@ class NavActions(val navHostController: NavHostController) {
     }
 
     val navigateToLogin: () -> Unit = {
-        navHostController.navigate(Routes.Login)
+        navHostController.navigate(Routes.Login) {
+            popUpTo<Routes.Login>()
+            launchSingleTop = true
+        }
     }
 
     val navigateToAuthorized: () -> Unit = {
@@ -36,7 +41,7 @@ class NavActions(val navHostController: NavHostController) {
 
     val navigateToHome: () -> Unit = {
         navHostController.navigate(Routes.Home) {
-            popUpTo(navHostController.graph.findStartDestination().id) {
+            popUpTo<Routes.Authorized> {
                 saveState = true
             }
             launchSingleTop = true
@@ -45,7 +50,7 @@ class NavActions(val navHostController: NavHostController) {
     }
     val navigateToAccount: () -> Unit = {
         navHostController.navigate(Routes.Account) {
-            popUpTo(navHostController.graph.findStartDestination().id) {
+            popUpTo<Routes.Authorized> {
                 saveState = true
             }
             launchSingleTop = true
@@ -54,7 +59,7 @@ class NavActions(val navHostController: NavHostController) {
     }
     val navigateToSettings: () -> Unit = {
         navHostController.navigate(Routes.Settings) {
-            popUpTo(navHostController.graph.findStartDestination().id) {
+            popUpTo<Routes.Authorized> {
                 saveState = true
             }
             launchSingleTop = true

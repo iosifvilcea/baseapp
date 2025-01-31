@@ -13,8 +13,11 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import baseapp.composeapp.generated.resources.Res
@@ -53,7 +56,17 @@ fun App() {
             }
         ) {
             NavigationHost(navAction)
+            printBackStack(navController = navHostController)
         }
+    }
+}
+
+@Composable
+fun printBackStack(navController: NavController) {
+    val backStackEntries by navController.currentBackStack.collectAsState()
+    LaunchedEffect(backStackEntries) {
+        val stack = backStackEntries.map { it.destination.route }
+        println("BackStack: Current Backstack: $stack")
     }
 }
 
