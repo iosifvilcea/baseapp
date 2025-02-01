@@ -11,5 +11,3 @@ enum class ErrorType(val message: StringResource) {
     INVALID_PASSWORD(Res.string.error_invalid_password_length),
     SERVER(Res.string.error_server_failed),
 }
-
-data class ErrorMessage(val error: ErrorType, val errorMessage: String)

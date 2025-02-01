@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.blankthings.baseapp.data.AuthManagerImpl
 import com.blankthings.baseapp.ui.HomeScreen
 import com.blankthings.baseapp.ui.login.LoginRoute
 import com.blankthings.baseapp.ui.login.LoginViewModel
@@ -29,7 +30,9 @@ fun NavigationHost(navActions: NavActions) {
             }
         }
         composable<Routes.Login> {
-            val viewModel: LoginViewModel = viewModel()
+            val viewModel: LoginViewModel = viewModel(
+                factory = LoginViewModel.provideFactory(AuthManagerImpl())
+            )
             LoginRoute(
                 viewModel,
                 navActions = navActions
