@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blankthings.baseapp.data.AuthManager
 import com.blankthings.baseapp.data.LoginResult
-import com.blankthings.baseapp.utils.ErrorMessage
 import com.blankthings.baseapp.utils.ErrorType
+import com.blankthings.baseapp.utils.Patterns
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,6 +30,16 @@ class LoginViewModel(
 
     fun login(emailString: String, passwordString: String) {
         if (emailString.isNullOrEmpty() || passwordString.isNullOrEmpty()) {
+            return
+        }
+
+        if (!Patterns.isValidEmail(emailString)) {
+            _uiState.value = AuthUiState.Failure(ErrorType.INVALID_EMAIL, "")
+            return
+        }
+
+        if (!Patterns.isValidPassword(passwordString)) {
+            _uiState.value = AuthUiState.Failure(ErrorType.INVALID_PASSWORD, "")
             return
         }
 
