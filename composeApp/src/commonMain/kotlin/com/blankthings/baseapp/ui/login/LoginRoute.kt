@@ -15,7 +15,10 @@ fun LoginRoute(
     loginViewModel.reset()
 
     when (uiState) {
-        AuthUiState.Default -> {
+        is AuthUiState.Loading -> {
+            /*TODO*/
+        }
+        is AuthUiState.Default -> {
             LoginScreen(
                 authUiState = uiState,
                 onForgotAccountClicked = navActions.navigateToForgotPassword,
@@ -23,9 +26,7 @@ fun LoginRoute(
                 onCreateAccountClicked = navActions.navigateToCreateAccount,
             )
         }
-        AuthUiState.Loading -> {
-            /*TODO*/
-        }
-        AuthUiState.LoginSuccess -> navActions.navigateToAuthorized.invoke()
+        is AuthUiState.Success -> navActions.navigateToAuthorized.invoke()
+        is AuthUiState.Failure -> { println("Aw shiiiiiiiiiii.") }
     }
 }
