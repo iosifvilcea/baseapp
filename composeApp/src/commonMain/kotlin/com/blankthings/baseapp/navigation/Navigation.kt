@@ -5,6 +5,7 @@ import CreateAccountScreen
 import ForgotPasswordScreen
 import SplashScreen
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -18,7 +19,7 @@ import com.blankthings.baseapp.ui.login.LoginViewModel
 import com.blankthings.baseapp.ui.SettingsScreen
 
 @Composable
-fun NavigationHost(navActions: NavActions) {
+fun NavigationHost(navActions: NavActions, snackbarHostState: SnackbarHostState) {
     NavHost(
         navController = navActions.navHostController,
         startDestination = Routes.Splash,
@@ -34,8 +35,9 @@ fun NavigationHost(navActions: NavActions) {
                 factory = LoginViewModel.provideFactory(AuthManagerImpl())
             )
             LoginRoute(
-                viewModel,
-                navActions = navActions
+                loginViewModel = viewModel,
+                navActions = navActions,
+                snackbarHostState = snackbarHostState
             )
         }
         composable<Routes.CreateAccount> {

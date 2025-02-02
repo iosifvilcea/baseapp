@@ -8,6 +8,8 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -44,8 +46,11 @@ fun App() {
         .collectAsState(initial = navHostController.currentBackStackEntry)
         .value?.destination?.route ?: Routes.Login.toString()
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
     MaterialTheme {
         Scaffold(
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             bottomBar = {
                 AnimatedVisibility(
                     visible = shouldShowBottomBar(currentRoute),
@@ -55,7 +60,7 @@ fun App() {
                 )
             }
         ) {
-            NavigationHost(navAction)
+            NavigationHost(navActions = navAction, snackbarHostState = snackbarHostState)
             printBackStack(navController = navHostController)
         }
     }

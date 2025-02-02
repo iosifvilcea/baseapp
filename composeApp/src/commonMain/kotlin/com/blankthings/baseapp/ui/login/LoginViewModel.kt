@@ -9,6 +9,7 @@ import com.blankthings.baseapp.data.AuthManagerImpl
 import com.blankthings.baseapp.data.LoginResult
 import com.blankthings.baseapp.utils.ErrorType
 import com.blankthings.baseapp.utils.Patterns
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,26 +34,26 @@ class LoginViewModel(
     }
 
     fun login(emailString: String, passwordString: String) {
-        if (emailString.isNullOrEmpty() || passwordString.isNullOrEmpty()) {
+        if (emailString.isEmpty()) {
+            _uiState.value = AuthUiState.Failure(ErrorType.INVALID_EMAIL, "")
             return
         }
 
-        _uiState.value = AuthUiState.Loading
-        return
+        if (passwordString.isEmpty() || !Patterns.isValidPassword(passwordString)) {
+            _uiState.value = AuthUiState.Failure(ErrorType.INVALID_PASSWORD, "")
+            return
+        }
 
         if (!Patterns.isValidEmail(emailString)) {
             _uiState.value = AuthUiState.Failure(ErrorType.INVALID_EMAIL, "")
             return
         }
 
-        if (!Patterns.isValidPassword(passwordString)) {
-            _uiState.value = AuthUiState.Failure(ErrorType.INVALID_PASSWORD, "")
-            return
-        }
-
         _uiState.value = AuthUiState.Loading
 
         viewModelScope.launch {
+            delay(1000)
+
             val result = authManager.loginWithEmailAndPassword(
                 email = emailString,
                 password = passwordString,
@@ -63,7 +64,7 @@ class LoginViewModel(
             }
         }
     }
-    
+
     companion object {
         fun provideFactory(
             authManager: AuthManager,
