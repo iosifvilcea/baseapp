@@ -19,7 +19,10 @@ import com.blankthings.baseapp.ui.login.LoginViewModel
 import com.blankthings.baseapp.ui.SettingsScreen
 
 @Composable
-fun NavigationHost(navActions: NavActions, snackbarHostState: SnackbarHostState) {
+fun NavigationHost(
+    navActions: NavActions,
+    snackbarHostState: SnackbarHostState
+) {
     NavHost(
         navController = navActions.navHostController,
         startDestination = Routes.Splash,

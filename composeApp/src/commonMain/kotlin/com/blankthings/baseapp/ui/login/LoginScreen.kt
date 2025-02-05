@@ -39,7 +39,6 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoginScreen(
-    authUiState: AuthUiState,
     onForgotAccountClicked: () -> Unit = {},
     onLoginClicked: (String, String) -> Unit = { _, _ -> },
     onCreateAccountClicked: () -> Unit = {},

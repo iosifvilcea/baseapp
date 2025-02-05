@@ -5,11 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.blankthings.baseapp.data.AuthManager
-import com.blankthings.baseapp.data.AuthManagerImpl
 import com.blankthings.baseapp.data.LoginResult
 import com.blankthings.baseapp.utils.ErrorType
 import com.blankthings.baseapp.utils.Patterns
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,33 +32,23 @@ class LoginViewModel(
     }
 
     fun login(emailString: String, passwordString: String) {
-        if (emailString.isEmpty()) {
-            _uiState.value = AuthUiState.Failure(ErrorType.INVALID_EMAIL, "")
-            return
-        }
+        when {
+            !Patterns.isValidEmail(emailString) -> _uiState.value = AuthUiState.Failure(ErrorType.INVALID_EMAIL, "")
+            !Patterns.isValidPassword(passwordString) -> _uiState.value = AuthUiState.Failure(ErrorType.INVALID_PASSWORD, "")
+            else -> {
+                _uiState.value = AuthUiState.Loading
 
-        if (passwordString.isEmpty() || !Patterns.isValidPassword(passwordString)) {
-            _uiState.value = AuthUiState.Failure(ErrorType.INVALID_PASSWORD, "")
-            return
-        }
+                viewModelScope.launch {
+                    val result = authManager.loginWithEmailAndPassword(
+                        email = emailString,
+                        password = passwordString,
+                    )
 
-        if (!Patterns.isValidEmail(emailString)) {
-            _uiState.value = AuthUiState.Failure(ErrorType.INVALID_EMAIL, "")
-            return
-        }
-
-        _uiState.value = AuthUiState.Loading
-
-        viewModelScope.launch {
-            delay(1000)
-
-            val result = authManager.loginWithEmailAndPassword(
-                email = emailString,
-                password = passwordString,
-            )
-            when (result) {
-                is LoginResult.Success -> _uiState.value = AuthUiState.Success
-                is LoginResult.Failed -> _uiState.value = AuthUiState.Failure(ErrorType.SERVER, result.message)
+                    when (result) {
+                        is LoginResult.Success -> _uiState.value = AuthUiState.Success
+                        is LoginResult.Failed -> _uiState.value = AuthUiState.Failure(ErrorType.SERVER, result.message)
+                    }
+                }
             }
         }
     }

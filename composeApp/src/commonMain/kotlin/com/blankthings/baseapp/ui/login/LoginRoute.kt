@@ -23,21 +23,28 @@ fun LoginRoute(
 ) {
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
 
-    if (uiState is AuthUiState.Failure) {
-        val errorMessage = stringResource((uiState as AuthUiState.Failure).errorType.message)
-        LaunchedEffect(uiState) {
-            snackbarHostState.showSnackbar(errorMessage)
+    when (val currentState = uiState) {
+        is AuthUiState.Success -> {
+            loginViewModel.reset()
+            navActions.navigateToAuthorized.invoke()
         }
-    }
-
-    when (uiState) {
-        is AuthUiState.Success -> navActions.navigateToAuthorized.invoke()
-        else -> {
+        is AuthUiState.Failure -> {
             loginScreen(
-                uiState = uiState,
                 loginViewModel = loginViewModel,
                 navActions = navActions,
-                showLoadingScreen = uiState is AuthUiState.Loading
+                showLoadingScreen = false
+            )
+
+            val errorMessage = stringResource(currentState.errorType.message)
+            LaunchedEffect(currentState.errorType) {
+                snackbarHostState.showSnackbar(errorMessage)
+            }
+        }
+        else -> {
+            loginScreen(
+                loginViewModel = loginViewModel,
+                navActions = navActions,
+                showLoadingScreen = currentState is AuthUiState.Loading
             )
         }
     }
@@ -45,12 +52,11 @@ fun LoginRoute(
 
 @Composable
 fun loginScreen(
-    uiState: AuthUiState,
     loginViewModel: LoginViewModel,
     navActions: NavActions,
-    showLoadingScreen: Boolean = false) {
+    showLoadingScreen: Boolean = false
+) {
     LoginScreen(
-        authUiState = uiState,
         onForgotAccountClicked = navActions.navigateToForgotPassword,
         onLoginClicked = loginViewModel::login,
         onCreateAccountClicked = navActions.navigateToCreateAccount,
