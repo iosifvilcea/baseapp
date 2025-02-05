@@ -26,6 +26,8 @@ import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.account
 import baseapp.composeapp.generated.resources.home
 import baseapp.composeapp.generated.resources.settings
+import com.blankthings.baseapp.analytics.Analytics
+import com.blankthings.baseapp.analytics.AnalyticsEvent
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.Routes
@@ -36,6 +38,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
+    Analytics.track(AnalyticsEvent.APPLICATION_OPENED)
+
     val navHostController: NavHostController = rememberNavController()
     val navAction = remember(navHostController) {
         NavActions(navHostController)
@@ -71,7 +75,7 @@ fun printBackStack(navController: NavController) {
     val backStackEntries by navController.currentBackStack.collectAsState()
     LaunchedEffect(backStackEntries) {
         val stack = backStackEntries.map { it.destination.route }
-        println("BackStack: Current Backstack: $stack")
+        Analytics.track(AnalyticsEvent.APPLICATION_BACKSTACK, mutableMapOf("STACK:" to stack))
     }
 }
 

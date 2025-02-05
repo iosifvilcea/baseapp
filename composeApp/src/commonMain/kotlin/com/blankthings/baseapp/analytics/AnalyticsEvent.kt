@@ -6,6 +6,7 @@ enum class AnalyticsEvent(val key: String) {
     APPLICATION_UPDATED("application_updated"),
     APPLICATION_OPENED("application_opened"),
     APPLICATION_CLOSED("application_closed"),
+    APPLICATION_BACKSTACK("application_backstack"),
 
     /* User lifecycle events */
     USER_SIGNED_IN("user_signed_in"),
