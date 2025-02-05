@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -83,7 +82,4 @@ android {
 dependencies {
     implementation(libs.androidx.annotation.jvm)
     debugImplementation(compose.uiTooling)
-
-    implementation(libs.showkase.annotation)
-    debugImplementation(libs.showkase)
 }
