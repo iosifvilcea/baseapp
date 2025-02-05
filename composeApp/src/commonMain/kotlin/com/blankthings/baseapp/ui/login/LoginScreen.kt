@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
@@ -14,9 +16,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -28,6 +34,7 @@ import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
+import com.blankthings.baseapp.utils.dismissibleKeyboard
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -37,6 +44,16 @@ fun LoginScreen(
     onLoginClicked: (String, String) -> Unit = { _, _ -> },
     onCreateAccountClicked: () -> Unit = {},
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+
+    val keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
+    val keyboardActions = KeyboardActions(
+        onDone = {
+            keyboardController?.hide()
+            focusManager.clearFocus()
+    })
+
     val blank = stringResource(Res.string.BLANK)
     val usernameLabel = stringResource(Res.string.username)
     val passwordLabel = stringResource(Res.string.password)
@@ -44,13 +61,16 @@ fun LoginScreen(
     val username = remember { mutableStateOf(blank) }
     val password = remember { mutableStateOf(blank) }
 
-    Column(modifier = Modifier.fillMaxHeight().padding(40.dp)) {
+    Column(modifier = Modifier.fillMaxHeight().padding(40.dp).dismissibleKeyboard()) {
         OutlinedTextField(
             value = username.value,
             onValueChange = { username.value = it },
             leadingIcon = { Icon(Icons.Default.Person, contentDescription = usernameLabel) },
             label = { Text(text = usernameLabel) },
-            modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
+            modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp),
+            singleLine = true,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions
         )
 
         OutlinedTextField(
@@ -59,12 +79,15 @@ fun LoginScreen(
             leadingIcon = { Icon(Icons.Default.Info, contentDescription = passwordLabel) },
             label = { Text(text = passwordLabel) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp),
-            visualTransformation = PasswordVisualTransformation()
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions
         )
 
         TextButton(
             onClick = onForgotAccountClicked,
-            modifier = Modifier.wrapContentSize().padding(0.dp, 20.dp, 0.dp, 0.dp)
+            modifier = Modifier.wrapContentSize().padding(0.dp, 20.dp, 0.dp, 0.dp),
         ) {
             Text(
                 text = stringResource(Res.string.forgot_password),
