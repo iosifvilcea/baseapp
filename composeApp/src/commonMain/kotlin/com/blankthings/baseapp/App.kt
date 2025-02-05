@@ -75,7 +75,7 @@ fun printBackStack(navController: NavController) {
     val backStackEntries by navController.currentBackStack.collectAsState()
     LaunchedEffect(backStackEntries) {
         val stack = backStackEntries.map { it.destination.route }
-        Analytics.track(AnalyticsEvent.APPLICATION_BACKSTACK, mutableMapOf("STACK:" to stack))
+        Analytics.track(AnalyticsEvent.APPLICATION_BACKSTACK, mutableMapOf("" to stack))
     }
 }
 
