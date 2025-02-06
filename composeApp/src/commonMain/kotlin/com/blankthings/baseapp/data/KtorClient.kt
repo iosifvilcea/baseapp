@@ -6,7 +6,7 @@ import io.ktor.client.plugins.logging.*
 
 object KtorClient {
 
-    private const val BASE_URL: String = "https://10.0.2.2:8080"
+    private const val BASE_URL: String = "https://10.0.2.2:8443"
 
     fun create(): HttpClient {
         return HttpClient {
