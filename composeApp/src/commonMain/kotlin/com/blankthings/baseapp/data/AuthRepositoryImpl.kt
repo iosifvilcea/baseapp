@@ -4,15 +4,11 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 
-class AuthManagerImpl: AuthManager {
-
-    val baseUrl: String = "https://dummyjson.com/test"
-    val client = HttpClient()
+class AuthRepositoryImpl(val client: HttpClient): AuthRepository {
 
     override suspend fun loginWithEmailAndPassword(email: String, password: String): LoginResult {
-        val text = client.get(baseUrl).bodyAsText()
-        client.close()
-        println("------->" + text)
+        val text = client.get("/").bodyAsText()
+        println("Text-------> " + text)
 
         return if (email.contains("admin")) {
             LoginResult.Success("accessToken", "uuid", true)

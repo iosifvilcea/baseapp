@@ -1,5 +1,5 @@
 package com.blankthings.baseapp.data
 
-interface AuthManager {
+interface AuthRepository {
     suspend fun loginWithEmailAndPassword(email: String, password: String): LoginResult
 }

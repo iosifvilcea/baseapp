@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.blankthings.baseapp.data.AuthManager
+import com.blankthings.baseapp.data.AuthRepository
 import com.blankthings.baseapp.data.LoginResult
 import com.blankthings.baseapp.utils.ErrorType
 import com.blankthings.baseapp.utils.Patterns
@@ -22,7 +22,7 @@ sealed interface AuthUiState {
 }
 
 class LoginViewModel(
-    private val authManager: AuthManager,
+    private val authRepository: AuthRepository,
 ): ViewModel() {
     private val _uiState = MutableStateFlow<AuthUiState>(AuthUiState.Default)
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
@@ -39,7 +39,7 @@ class LoginViewModel(
                 _uiState.value = AuthUiState.Loading
 
                 viewModelScope.launch {
-                    val result = authManager.loginWithEmailAndPassword(
+                    val result = authRepository.loginWithEmailAndPassword(
                         email = emailString,
                         password = passwordString,
                     )
@@ -55,11 +55,11 @@ class LoginViewModel(
 
     companion object {
         fun provideFactory(
-            authManager: AuthManager,
+            authRepository: AuthRepository,
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
-                return LoginViewModel(authManager) as T
+                return LoginViewModel(authRepository) as T
             }
         }
     }
