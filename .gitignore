@@ -11,6 +11,7 @@ captures
 .externalNativeBuild
 .cxx
 .fleet/
+*.pem
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
