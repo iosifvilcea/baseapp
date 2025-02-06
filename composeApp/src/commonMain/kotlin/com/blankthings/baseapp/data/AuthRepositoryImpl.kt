@@ -5,9 +5,8 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 
 class AuthRepositoryImpl(val client: HttpClient): AuthRepository {
-
     override suspend fun loginWithEmailAndPassword(email: String, password: String): LoginResult {
-        val text = client.get("/").bodyAsText()
+        val text = client.get("/greeting").bodyAsText()
         println("Text-------> " + text)
 
         return if (email.contains("admin")) {

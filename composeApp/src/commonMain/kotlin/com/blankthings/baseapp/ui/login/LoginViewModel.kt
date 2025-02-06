@@ -43,7 +43,6 @@ class LoginViewModel(
                         email = emailString,
                         password = passwordString,
                     )
-
                     when (result) {
                         is LoginResult.Success -> _uiState.value = AuthUiState.Success
                         is LoginResult.Failed -> _uiState.value = AuthUiState.Failure(ErrorType.SERVER, result.message)

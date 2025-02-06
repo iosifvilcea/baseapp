@@ -22,6 +22,7 @@ import io.ktor.client.HttpClient
 
 @Composable
 fun NavigationHost(
+    httpClient: HttpClient,
     navActions: NavActions,
     snackbarHostState: SnackbarHostState
 ) {
@@ -36,10 +37,9 @@ fun NavigationHost(
             }
         }
         composable<Routes.Login> {
-            val client: HttpClient = KtorClient.create()
             val viewModel: LoginViewModel = viewModel(
                 factory = LoginViewModel.provideFactory(
-                    AuthRepositoryImpl(client)
+                    AuthRepositoryImpl(httpClient)
                 )
             )
             LoginRoute(

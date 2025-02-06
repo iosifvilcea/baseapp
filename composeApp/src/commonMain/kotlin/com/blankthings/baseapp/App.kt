@@ -28,6 +28,7 @@ import baseapp.composeapp.generated.resources.home
 import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
+import com.blankthings.baseapp.data.KtorClient
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.Routes
@@ -40,6 +41,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     Analytics.track(AnalyticsEvent.APPLICATION_OPENED)
 
+    val httpClient = KtorClient.create()
     val navHostController: NavHostController = rememberNavController()
     val navAction = remember(navHostController) {
         NavActions(navHostController)
@@ -64,7 +66,11 @@ fun App() {
                 )
             }
         ) {
-            NavigationHost(navActions = navAction, snackbarHostState = snackbarHostState)
+            NavigationHost(
+                httpClient = httpClient,
+                navActions = navAction,
+                snackbarHostState = snackbarHostState
+            )
             printBackStack(navController = navHostController)
         }
     }
