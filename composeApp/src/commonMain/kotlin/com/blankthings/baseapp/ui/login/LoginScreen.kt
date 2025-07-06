@@ -33,14 +33,16 @@ import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
+import com.blankthings.baseapp.model.UserData
 import com.blankthings.baseapp.utils.dismissibleKeyboard
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoginScreen(
     onForgotAccountClicked: () -> Unit = {},
-    onLoginClicked: (String, String) -> Unit = { _, _ -> },
+    onLoginClicked: (UserData) -> Unit = { _ -> },
     onCreateAccountClicked: () -> Unit = {},
+    onBypassButtonClicked: () -> Unit = {}
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -96,7 +98,7 @@ fun LoginScreen(
         }
 
         OutlinedButton(
-            onClick = { onLoginClicked.invoke(username.value, password.value) },
+            onClick = { onLoginClicked.invoke(UserData(username.value, password.value)) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
                 text = stringResource(Res.string.login),
@@ -111,6 +113,19 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
                 text = stringResource(Res.string.create_account),
+                modifier = Modifier.fillMaxWidth().padding(5.dp),
+                textAlign = TextAlign.Center,
+                fontSize = 20.sp
+            )
+        }
+
+        // TODO: REMOVE THIS BUTTON AFTER TESTING
+        TextButton(
+            onClick = onBypassButtonClicked,
+            modifier = Modifier.wrapContentSize().padding(0.dp, 20.dp, 0.dp, 0.dp),
+        ) {
+            Text(
+                text = "Go to Settings",
                 modifier = Modifier.fillMaxWidth().padding(5.dp),
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp

@@ -6,7 +6,7 @@ import io.ktor.client.plugins.logging.*
 
 object KtorClient {
 
-    private const val BASE_URL: String = "https://10.0.2.2:8443"
+    private const val BASE_URL: String = "http://10.0.2.2:8080"
 
     fun create(): HttpClient {
         return HttpClient {
@@ -14,7 +14,6 @@ object KtorClient {
                 logger = Logger.DEFAULT
                 level = LogLevel.ALL
             }
-
             defaultRequest {
                 url(BASE_URL)
             }

@@ -60,6 +60,7 @@ fun loginScreen(
         onForgotAccountClicked = navActions.navigateToForgotPassword,
         onLoginClicked = loginViewModel::login,
         onCreateAccountClicked = navActions.navigateToCreateAccount,
+        onBypassButtonClicked = navActions.navigateToSettings
     )
     if (showLoadingScreen) {
         Box(modifier = Modifier

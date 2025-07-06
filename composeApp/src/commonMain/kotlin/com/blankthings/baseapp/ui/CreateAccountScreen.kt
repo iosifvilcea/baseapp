@@ -27,7 +27,7 @@ fun CreateAccountScreen() {
     val confirmPassword = remember { mutableStateOf("") }
     val passwordVisible = remember { mutableStateOf(false) }
 
-    Scaffold() {
+    Scaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
