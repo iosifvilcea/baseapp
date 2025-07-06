@@ -33,14 +33,14 @@ import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
-import com.blankthings.baseapp.model.UserData
+import com.blankthings.baseapp.model.AuthData
 import com.blankthings.baseapp.utils.dismissibleKeyboard
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoginScreen(
     onForgotAccountClicked: () -> Unit = {},
-    onLoginClicked: (UserData) -> Unit = { _ -> },
+    onLoginClicked: (AuthData) -> Unit = { _ -> },
     onCreateAccountClicked: () -> Unit = {},
     onBypassButtonClicked: () -> Unit = {}
 ) {
@@ -98,7 +98,7 @@ fun LoginScreen(
         }
 
         OutlinedButton(
-            onClick = { onLoginClicked.invoke(UserData(username.value, password.value)) },
+            onClick = { onLoginClicked.invoke(AuthData(username.value, password.value)) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
                 text = stringResource(Res.string.login),
