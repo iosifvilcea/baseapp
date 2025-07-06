@@ -13,11 +13,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.blankthings.baseapp.data.AuthRepositoryImpl
-import com.blankthings.baseapp.data.KtorClient
 import com.blankthings.baseapp.ui.HomeScreen
 import com.blankthings.baseapp.ui.login.LoginRoute
 import com.blankthings.baseapp.ui.login.LoginViewModel
-import com.blankthings.baseapp.ui.SettingsScreen
+import com.blankthings.baseapp.ui.settings.SettingsScreen
 import io.ktor.client.HttpClient
 
 @Composable
