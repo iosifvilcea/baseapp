@@ -1,10 +1,11 @@
 package com.blankthings.baseapp.data
 
+import com.blankthings.baseapp.datastore.DataStoreManager
 import com.blankthings.baseapp.model.DarkThemeConfig
 import com.blankthings.baseapp.model.UserData
 import kotlinx.coroutines.flow.Flow
 
-internal class UserDataRepositoryImpl: UserDataRepository {
+internal class UserDataRepositoryImpl(val dataStoreManager: DataStoreManager): UserDataRepository {
     override val userData: Flow<UserData>
         get() = TODO("Get from DataStore")
 

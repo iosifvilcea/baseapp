@@ -30,6 +30,7 @@ import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
 import com.blankthings.baseapp.data.AuthRepositoryImpl
 import com.blankthings.baseapp.data.KtorClient
+import com.blankthings.baseapp.data.UserDataRepositoryImpl
 import com.blankthings.baseapp.datastore.DataStoreFactory
 import com.blankthings.baseapp.datastore.DataStoreManagerImpl
 import com.blankthings.baseapp.navigation.NavActions
@@ -44,15 +45,14 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     Analytics.track(AnalyticsEvent.APPLICATION_OPENED)
 
-    // TODO - Implement
     val dataStoreManager = DataStoreManagerImpl(DataStoreFactory())
+    val userDataRepository = UserDataRepositoryImpl(dataStoreManager)
 
     val httpClient = KtorClient.create()
     val navHostController: NavHostController = rememberNavController()
     val navAction = remember(navHostController) {
         NavActions(navHostController)
     }
-
     val authRepository = AuthRepositoryImpl(httpClient)
 
     val currentRoute = navHostController
@@ -76,6 +76,7 @@ fun App() {
         ) {
             NavigationHost(
                 authRepository = authRepository,
+                userDataRepository = userDataRepository,
                 navActions = navAction,
                 snackbarHostState = snackbarHostState
             )

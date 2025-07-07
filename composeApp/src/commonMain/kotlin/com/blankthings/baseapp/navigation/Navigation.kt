@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.blankthings.baseapp.data.AuthRepository
 import com.blankthings.baseapp.data.AuthRepositoryImpl
+import com.blankthings.baseapp.data.UserDataRepository
 import com.blankthings.baseapp.ui.HomeScreen
 import com.blankthings.baseapp.ui.login.LoginRoute
 import com.blankthings.baseapp.ui.login.LoginViewModel
@@ -24,6 +25,7 @@ import io.ktor.client.HttpClient
 @Composable
 fun NavigationHost(
     authRepository: AuthRepository,
+    userDataRepository: UserDataRepository,
     navActions: NavActions,
     snackbarHostState: SnackbarHostState
 ) {
@@ -65,7 +67,9 @@ fun NavigationHost(
                 }
             }
             composable<Routes.Settings> {
-                val viewModel: SettingsViewModel = viewModel()
+                val viewModel: SettingsViewModel = viewModel(
+                    factory = SettingsViewModel.provideFactory(userDataRepository)
+                )
                 SettingsScreen(viewModel)
             }
         }
