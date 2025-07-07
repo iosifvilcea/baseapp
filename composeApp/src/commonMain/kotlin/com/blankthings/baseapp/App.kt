@@ -28,6 +28,7 @@ import baseapp.composeapp.generated.resources.home
 import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
+import com.blankthings.baseapp.data.AuthRepositoryImpl
 import com.blankthings.baseapp.data.KtorClient
 import com.blankthings.baseapp.datastore.DataStoreFactory
 import com.blankthings.baseapp.datastore.DataStoreManagerImpl
@@ -52,6 +53,8 @@ fun App() {
         NavActions(navHostController)
     }
 
+    val authRepository = AuthRepositoryImpl(httpClient)
+
     val currentRoute = navHostController
         .currentBackStackEntryFlow
         .collectAsState(initial = navHostController.currentBackStackEntry)
@@ -72,7 +75,7 @@ fun App() {
             }
         ) {
             NavigationHost(
-                httpClient = httpClient,
+                authRepository = authRepository,
                 navActions = navAction,
                 snackbarHostState = snackbarHostState
             )
