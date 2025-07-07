@@ -29,6 +29,8 @@ import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
 import com.blankthings.baseapp.data.KtorClient
+import com.blankthings.baseapp.datastore.DataStoreFactory
+import com.blankthings.baseapp.datastore.DataStoreManagerImpl
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.Routes
@@ -40,6 +42,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     Analytics.track(AnalyticsEvent.APPLICATION_OPENED)
+
+    // TODO - Implement
+    val dataStoreManager = DataStoreManagerImpl(DataStoreFactory())
 
     val httpClient = KtorClient.create()
     val navHostController: NavHostController = rememberNavController()

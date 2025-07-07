@@ -17,6 +17,7 @@ import com.blankthings.baseapp.ui.HomeScreen
 import com.blankthings.baseapp.ui.login.LoginRoute
 import com.blankthings.baseapp.ui.login.LoginViewModel
 import com.blankthings.baseapp.ui.settings.SettingsScreen
+import com.blankthings.baseapp.ui.settings.SettingsViewModel
 import io.ktor.client.HttpClient
 
 @Composable
@@ -65,7 +66,8 @@ fun NavigationHost(
                 }
             }
             composable<Routes.Settings> {
-                SettingsScreen()
+                val viewModel: SettingsViewModel = viewModel()
+                SettingsScreen(viewModel)
             }
         }
     }
