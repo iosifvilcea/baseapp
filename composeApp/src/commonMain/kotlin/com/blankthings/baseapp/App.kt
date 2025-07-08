@@ -3,6 +3,8 @@ package com.blankthings.baseapp
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -12,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -74,13 +77,15 @@ fun App() {
                     content = { BottomNavBar(navAction) }
                 )
             }
-        ) {
-            NavigationHost(
-                authRepository = authRepository,
-                userDataRepository = userDataRepository,
-                navActions = navAction,
-                snackbarHostState = snackbarHostState
-            )
+        ) { paddingValues ->
+            Box(modifier = Modifier.padding(paddingValues)) {
+                NavigationHost(
+                    authRepository = authRepository,
+                    userDataRepository = userDataRepository,
+                    navActions = navAction,
+                    snackbarHostState = snackbarHostState
+                )
+            }
             printBackStack(navController = navHostController)
         }
     }
