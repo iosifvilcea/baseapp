@@ -7,14 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +32,7 @@ import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
+import com.blankthings.baseapp.component.BaOutlinedButton
 import com.blankthings.baseapp.model.AuthData
 import com.blankthings.baseapp.utils.dismissibleKeyboard
 import org.jetbrains.compose.resources.stringResource
@@ -96,26 +96,14 @@ fun LoginScreen(
             )
         }
 
-        OutlinedButton(
+        BaOutlinedButton(
             onClick = { onLoginClicked.invoke(AuthData(username.value, password.value)) },
-            modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
-            Text(
-                text = stringResource(Res.string.login),
-                modifier = Modifier.fillMaxWidth().padding(5.dp),
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp
-            )
-        }
+            text = stringResource(Res.string.login)
+        )
 
-        OutlinedButton(
+        BaOutlinedButton(
             onClick = onCreateAccountClicked,
-            modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
-            Text(
-                text = stringResource(Res.string.create_account),
-                modifier = Modifier.fillMaxWidth().padding(5.dp),
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp
-            )
-        }
+            text = stringResource(Res.string.create_account)
+        )
     }
 }
