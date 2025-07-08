@@ -41,10 +41,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     Analytics.track(AnalyticsEvent.APPLICATION_OPENED)
 
+    val httpClient = AppDependencies.getHttpClient()
     val dataStoreManager = AppDependencies.getDataStoreManager()
     val userDataRepository = UserDataRepositoryImpl(dataStoreManager)
 
-    val httpClient = KtorClient.create()
     val navHostController: NavHostController = rememberNavController()
     val navAction = remember(navHostController) {
         NavActions(navHostController)
