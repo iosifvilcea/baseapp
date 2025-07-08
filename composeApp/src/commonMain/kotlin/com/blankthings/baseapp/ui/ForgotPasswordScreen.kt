@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.blankthings.baseapp.component.BaOutlinedButton
 
 @Composable
 fun ForgotPasswordScreen(onForgotPasswordClick: () -> Unit) {
@@ -39,16 +40,9 @@ fun ForgotPasswordScreen(onForgotPasswordClick: () -> Unit) {
             modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
         )
 
-        OutlinedButton(
+        BaOutlinedButton(
             onClick = onForgotPasswordClick,
-            modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
-        ) {
-            Text(
-                text = "Send",
-                modifier = Modifier.fillMaxWidth().padding(5.dp),
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp
-            )
-        }
+            text = "Send"
+        )
     }
 }
