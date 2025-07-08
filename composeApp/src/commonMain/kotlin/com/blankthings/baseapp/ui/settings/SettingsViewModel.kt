@@ -2,14 +2,10 @@ package com.blankthings.baseapp.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.blankthings.baseapp.data.AuthRepository
 import com.blankthings.baseapp.data.UserDataRepository
-import com.blankthings.baseapp.ui.login.LoginViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 class SettingsViewModel(userDataRepository: UserDataRepository): ViewModel() {
