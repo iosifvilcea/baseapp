@@ -28,6 +28,7 @@ import baseapp.composeapp.generated.resources.home
 import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
+import com.blankthings.baseapp.component.TopAppBar
 import com.blankthings.baseapp.data.AuthRepositoryImpl
 import com.blankthings.baseapp.data.KtorClient
 import com.blankthings.baseapp.data.UserDataRepositoryImpl
@@ -62,10 +63,18 @@ fun App() {
 
     MaterialTheme {
         Scaffold(
+            topBar = {
+                AnimatedVisibility(
+                    visible = shouldShowNavBars(currentRoute),
+                    enter = slideInVertically(initialOffsetY = { it }),
+                    exit = slideOutVertically(targetOffsetY = { it }),
+                    content = { TopAppBar() }
+                )
+            },
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             bottomBar = {
                 AnimatedVisibility(
-                    visible = shouldShowBottomBar(currentRoute),
+                    visible = shouldShowNavBars(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it }),
                     content = { bottomNav(navAction) }
@@ -114,7 +123,7 @@ fun bottomNav(navActions: NavActions) {
 }
 
 @Composable
-fun shouldShowBottomBar(route: String): Boolean =
+fun shouldShowNavBars(route: String): Boolean =
     when (route.substringAfterLast(Constants.DELIMITER_DOT)) {
         stringResource(Res.string.home) -> true
         stringResource(Res.string.account) -> true
