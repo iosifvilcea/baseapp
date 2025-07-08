@@ -45,7 +45,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     Analytics.track(AnalyticsEvent.APPLICATION_OPENED)
 
-    val dataStoreManager = DataStoreManagerImpl(DataStoreFactory())
+    val dataStoreManager = AppDependencies.getDataStoreManager()
     val userDataRepository = UserDataRepositoryImpl(dataStoreManager)
 
     val httpClient = KtorClient.create()
