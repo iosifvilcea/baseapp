@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">BaseApp</string>
     <string name="home">Home</string>
     <string name="onboarding">OnBoarding</string>
     <string name="login">Login</string>

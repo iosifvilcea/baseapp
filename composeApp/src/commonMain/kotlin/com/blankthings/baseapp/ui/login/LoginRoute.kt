@@ -3,8 +3,8 @@ package com.blankthings.baseapp.ui.login
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.SnackbarHostState
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -59,8 +59,7 @@ fun loginScreen(
     LoginScreen(
         onForgotAccountClicked = navActions.navigateToForgotPassword,
         onLoginClicked = loginViewModel::login,
-        onCreateAccountClicked = navActions.navigateToCreateAccount,
-        onBypassButtonClicked = navActions.navigateToSettings
+        onCreateAccountClicked = navActions.navigateToCreateAccount
     )
     if (showLoadingScreen) {
         Box(modifier = Modifier

@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
@@ -41,8 +41,7 @@ import org.jetbrains.compose.resources.stringResource
 fun LoginScreen(
     onForgotAccountClicked: () -> Unit = {},
     onLoginClicked: (AuthData) -> Unit = { _ -> },
-    onCreateAccountClicked: () -> Unit = {},
-    onBypassButtonClicked: () -> Unit = {}
+    onCreateAccountClicked: () -> Unit = {}
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -113,19 +112,6 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 0.dp)) {
             Text(
                 text = stringResource(Res.string.create_account),
-                modifier = Modifier.fillMaxWidth().padding(5.dp),
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp
-            )
-        }
-
-        // TODO: REMOVE THIS BUTTON AFTER TESTING
-        TextButton(
-            onClick = onBypassButtonClicked,
-            modifier = Modifier.wrapContentSize().padding(0.dp, 20.dp, 0.dp, 0.dp),
-        ) {
-            Text(
-                text = "Go to Settings",
                 modifier = Modifier.fillMaxWidth().padding(5.dp),
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp

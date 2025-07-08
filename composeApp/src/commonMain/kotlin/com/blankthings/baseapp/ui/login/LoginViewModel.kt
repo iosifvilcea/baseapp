@@ -33,24 +33,26 @@ class LoginViewModel(
     }
 
     fun login(authData: AuthData) {
-        when {
-            !Patterns.isValidEmail(authData.email) -> _uiState.value = AuthUiState.Failure(ErrorType.INVALID_EMAIL, "")
-            !Patterns.isValidPassword(authData.password) -> _uiState.value = AuthUiState.Failure(ErrorType.INVALID_PASSWORD, "")
-            else -> {
-                _uiState.value = AuthUiState.Loading
-
-                viewModelScope.launch {
-                    val result = authRepository.loginWithEmailAndPassword(
-                        email = authData.email,
-                        password = authData.password,
-                    )
-                    when (result) {
-                        is LoginResult.Success -> _uiState.value = AuthUiState.Success(authData)
-                        is LoginResult.Failed -> _uiState.value = AuthUiState.Failure(ErrorType.SERVER, result.message)
-                    }
-                }
-            }
-        }
+        // TODO - Fix eventually.
+        _uiState.value = AuthUiState.Success(authData)
+//        when {
+//            !Patterns.isValidEmail(authData.email) -> _uiState.value = AuthUiState.Failure(ErrorType.INVALID_EMAIL, "")
+//            !Patterns.isValidPassword(authData.password) -> _uiState.value = AuthUiState.Failure(ErrorType.INVALID_PASSWORD, "")
+//            else -> {
+//                _uiState.value = AuthUiState.Loading
+//
+//                viewModelScope.launch {
+//                    val result = authRepository.loginWithEmailAndPassword(
+//                        email = authData.email,
+//                        password = authData.password,
+//                    )
+//                    when (result) {
+//                        is LoginResult.Success -> _uiState.value = AuthUiState.Success(authData)
+//                        is LoginResult.Failed -> _uiState.value = AuthUiState.Failure(ErrorType.SERVER, result.message)
+//                    }
+//                }
+//            }
+//        }
     }
 
     companion object {

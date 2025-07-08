@@ -5,7 +5,7 @@ import CreateAccountScreen
 import ForgotPasswordScreen
 import SplashScreen
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.SnackbarHostState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -13,14 +13,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.blankthings.baseapp.data.AuthRepository
-import com.blankthings.baseapp.data.AuthRepositoryImpl
 import com.blankthings.baseapp.data.UserDataRepository
 import com.blankthings.baseapp.ui.HomeScreen
 import com.blankthings.baseapp.ui.login.LoginRoute
 import com.blankthings.baseapp.ui.login.LoginViewModel
 import com.blankthings.baseapp.ui.settings.SettingsScreen
 import com.blankthings.baseapp.ui.settings.SettingsViewModel
-import io.ktor.client.HttpClient
 
 @Composable
 fun NavigationHost(

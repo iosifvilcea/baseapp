@@ -3,13 +3,13 @@ package com.blankthings.baseapp
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -31,8 +31,6 @@ import com.blankthings.baseapp.analytics.AnalyticsEvent
 import com.blankthings.baseapp.data.AuthRepositoryImpl
 import com.blankthings.baseapp.data.KtorClient
 import com.blankthings.baseapp.data.UserDataRepositoryImpl
-import com.blankthings.baseapp.datastore.DataStoreFactory
-import com.blankthings.baseapp.datastore.DataStoreManagerImpl
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.Routes
@@ -96,18 +94,18 @@ fun printBackStack(navController: NavController) {
 
 @Composable
 fun bottomNav(navActions: NavActions) {
-    BottomNavigation {
-        BottomNavigationItem(
+    NavigationBar {
+        NavigationBarItem(
             icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "") },
             selected = true,
             onClick = navActions.navigateToHome
         )
-        BottomNavigationItem(
+        NavigationBarItem(
             icon = { Icon(imageVector = Icons.Default.Person, contentDescription = "") },
             selected = false,
             onClick = navActions.navigateToAccount
         )
-        BottomNavigationItem(
+        NavigationBarItem(
             icon = { Icon(imageVector = Icons.Default.Settings, contentDescription = "") },
             selected = false,
             onClick = navActions.navigateToSettings
