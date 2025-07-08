@@ -67,7 +67,7 @@ fun App() {
                 AnimatedVisibility(
                     visible = shouldShowNavBars(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
-                    exit = slideOutVertically(targetOffsetY = { it }),
+                    exit = slideOutVertically(targetOffsetY = { -it }),
                     content = { TopAppBar() }
                 )
             },
