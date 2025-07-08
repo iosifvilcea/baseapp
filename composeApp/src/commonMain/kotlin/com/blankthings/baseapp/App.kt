@@ -3,17 +3,10 @@ package com.blankthings.baseapp
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,6 +21,7 @@ import baseapp.composeapp.generated.resources.home
 import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
+import com.blankthings.baseapp.component.BottomNavBar
 import com.blankthings.baseapp.component.TopAppBar
 import com.blankthings.baseapp.data.AuthRepositoryImpl
 import com.blankthings.baseapp.data.KtorClient
@@ -77,7 +71,7 @@ fun App() {
                     visible = shouldShowNavBars(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it }),
-                    content = { bottomNav(navAction) }
+                    content = { BottomNavBar(navAction) }
                 )
             }
         ) {
@@ -98,27 +92,6 @@ fun printBackStack(navController: NavController) {
     LaunchedEffect(backStackEntries) {
         val stack = backStackEntries.map { it.destination.route }
         Analytics.track(AnalyticsEvent.APPLICATION_BACKSTACK, mutableMapOf("" to stack))
-    }
-}
-
-@Composable
-fun bottomNav(navActions: NavActions) {
-    NavigationBar {
-        NavigationBarItem(
-            icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "") },
-            selected = true,
-            onClick = navActions.navigateToHome
-        )
-        NavigationBarItem(
-            icon = { Icon(imageVector = Icons.Default.Person, contentDescription = "") },
-            selected = false,
-            onClick = navActions.navigateToAccount
-        )
-        NavigationBarItem(
-            icon = { Icon(imageVector = Icons.Default.Settings, contentDescription = "") },
-            selected = false,
-            onClick = navActions.navigateToSettings
-        )
     }
 }
 
