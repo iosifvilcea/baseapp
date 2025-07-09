@@ -5,6 +5,10 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -20,14 +24,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.account
+import baseapp.composeapp.generated.resources.app_name
 import baseapp.composeapp.generated.resources.home
+import baseapp.composeapp.generated.resources.search
 import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
 import com.blankthings.baseapp.component.BottomNavBar
 import com.blankthings.baseapp.component.TopAppBar
 import com.blankthings.baseapp.data.AuthRepositoryImpl
-import com.blankthings.baseapp.data.KtorClient
 import com.blankthings.baseapp.data.UserDataRepositoryImpl
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.NavigationHost
@@ -65,7 +70,7 @@ fun App() {
                     visible = shouldShowNavBars(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { -it }),
-                    content = { TopAppBar() }
+                    content = { TopAppBar(title = stringResource(Res.string.app_name)) }
                 )
             },
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
