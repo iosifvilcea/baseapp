@@ -5,10 +5,6 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -26,7 +22,6 @@ import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.account
 import baseapp.composeapp.generated.resources.app_name
 import baseapp.composeapp.generated.resources.home
-import baseapp.composeapp.generated.resources.search
 import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
@@ -67,7 +62,7 @@ fun App() {
         Scaffold(
             topBar = {
                 AnimatedVisibility(
-                    visible = shouldShowNavBars(currentRoute),
+                    visible = showNavBars(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { -it }),
                     content = { TopAppBar(title = stringResource(Res.string.app_name)) }
@@ -76,7 +71,7 @@ fun App() {
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             bottomBar = {
                 AnimatedVisibility(
-                    visible = shouldShowNavBars(currentRoute),
+                    visible = showNavBars(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it }),
                     content = { BottomNavBar(navAction) }
@@ -106,7 +101,7 @@ fun printBackStack(navController: NavController) {
 }
 
 @Composable
-fun shouldShowNavBars(route: String): Boolean =
+fun showNavBars(route: String): Boolean =
     when (route.substringAfterLast(Constants.DELIMITER_DOT)) {
         stringResource(Res.string.home) -> true
         stringResource(Res.string.account) -> true
