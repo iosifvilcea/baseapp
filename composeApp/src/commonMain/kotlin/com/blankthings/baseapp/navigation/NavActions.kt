@@ -11,7 +11,10 @@ sealed interface Routes {
     @Serializable data object ForgotPassword: Routes
 
     @Serializable data object Authorized: Routes
+
+    @Serializable data object HomeBase: Routes
     @Serializable data object Home: Routes
+
     @Serializable data object Account: Routes
     @Serializable data object Settings: Routes
 }

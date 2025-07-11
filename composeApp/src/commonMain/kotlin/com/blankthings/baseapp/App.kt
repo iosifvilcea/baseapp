@@ -32,6 +32,7 @@ import com.blankthings.baseapp.data.UserDataRepositoryImpl
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.Routes
+import com.blankthings.baseapp.navigation.TopDestinations
 import com.blankthings.baseapp.utils.Constants
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -58,6 +59,8 @@ fun App() {
 
     val snackbarHostState = remember { SnackbarHostState() }
 
+    val topDestinations: List<TopDestinations> = TopDestinations.entries
+
     MaterialTheme {
         Scaffold(
             topBar = {
@@ -74,7 +77,7 @@ fun App() {
                     visible = showNavBars(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it }),
-                    content = { BottomNavBar(navAction) }
+                    content = { BottomNavBar(currentRoute, topDestinations, navAction) }
                 )
             }
         ) { paddingValues ->
