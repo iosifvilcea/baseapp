@@ -8,8 +8,6 @@ import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
-actual object AppContext
-
 @OptIn(ExperimentalForeignApi::class)
 actual class DataStoreFactory {
     actual fun createDataStore(): DataStore<Preferences> =

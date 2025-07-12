@@ -43,6 +43,7 @@ fun App() {
     Analytics.track(AnalyticsEvent.APPLICATION_OPENED)
 
     val httpClient = AppDependencies.getHttpClient()
+    val networkMonitor = AppDependencies.getNetworkMonitor()
     val dataStoreManager = AppDependencies.getDataStoreManager()
     val userDataRepository = UserDataRepositoryImpl(dataStoreManager)
 
@@ -56,6 +57,10 @@ fun App() {
         .currentBackStackEntryFlow
         .collectAsState(initial = navHostController.currentBackStackEntry)
         .value?.destination?.route ?: Routes.Login.toString()
+
+    networkMonitor.isOnline.collectAsState(initial = true).value.let { isOnline ->
+        println("Is ONLINE -> " + isOnline)
+    }
 
     val snackbarHostState = remember { SnackbarHostState() }
 

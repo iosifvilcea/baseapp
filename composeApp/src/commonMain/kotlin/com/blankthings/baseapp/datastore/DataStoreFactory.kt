@@ -5,8 +5,6 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import okio.Path.Companion.toPath
 
-expect object AppContext
-
 expect class DataStoreFactory() {
     fun createDataStore(): DataStore<Preferences>
 }

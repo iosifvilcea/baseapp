@@ -5,14 +5,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.blankthings.baseapp.datastore.AppContext
 import com.blankthings.baseapp.datastore.DataStoreFactory
 import com.blankthings.baseapp.datastore.DataStoreManagerImpl
+import com.blankthings.baseapp.utils.AppContext
+import com.blankthings.baseapp.utils.NetworkMonitorFactory
+import com.blankthings.baseapp.utils.NetworkMonitorImpl
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppContext.init(applicationContext)
+        AppDependencies.initializeNetworkMonitor(NetworkMonitorImpl(NetworkMonitorFactory()))
         AppDependencies.initializeDataStore(DataStoreManagerImpl(DataStoreFactory()))
         setContent {
             App()
