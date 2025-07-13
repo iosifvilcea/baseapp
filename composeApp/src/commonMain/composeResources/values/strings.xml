@@ -4,6 +4,7 @@
     <string name="home">Home</string>
     <string name="onboarding">OnBoarding</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="create_account">Create Account</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="account">Account</string>
@@ -16,6 +17,8 @@
     <string name="error_invalid_email">Error: Invalid Email</string>
     <string name="error_invalid_password_length">Error: Invalid Password Length</string>
     <string name="error_server_failed">Error: Server Failed</string>
+
+    <string name="error_no_internet_connection">No Internet Connection</string>
 
     <string name="BLANK"></string>
 </resources>

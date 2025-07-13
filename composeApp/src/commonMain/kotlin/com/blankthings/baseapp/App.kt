@@ -26,6 +26,7 @@ import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
 import com.blankthings.baseapp.component.BottomNavBar
+import com.blankthings.baseapp.component.NoConnectionBar
 import com.blankthings.baseapp.component.TopAppBar
 import com.blankthings.baseapp.data.AuthRepositoryImpl
 import com.blankthings.baseapp.data.UserDataRepositoryImpl
@@ -58,10 +59,6 @@ fun App() {
         .collectAsState(initial = navHostController.currentBackStackEntry)
         .value?.destination?.route ?: Routes.Login.toString()
 
-    networkMonitor.isOnline.collectAsState(initial = true).value.let { isOnline ->
-        println("Is ONLINE -> " + isOnline)
-    }
-
     val snackbarHostState = remember { SnackbarHostState() }
 
     val topDestinations: List<TopDestinations> = TopDestinations.entries
@@ -93,7 +90,13 @@ fun App() {
                     navActions = navAction,
                     snackbarHostState = snackbarHostState
                 )
+                networkMonitor.isOnline.collectAsState(initial = true).value.let { isOnline ->
+                    if (!isOnline) {
+                        NoConnectionBar()
+                    }
+                }
             }
+
             printBackStack(navController = navHostController)
         }
     }

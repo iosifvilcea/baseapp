@@ -11,6 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import baseapp.composeapp.generated.resources.Res
+import baseapp.composeapp.generated.resources.logout
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AccountScreen(onLogoutClicked: () -> Unit) {
@@ -26,7 +29,7 @@ fun AccountScreen(onLogoutClicked: () -> Unit) {
         )
         OutlinedButton(onClick = onLogoutClicked) {
             Text(
-                text = "Logout",
+                text = stringResource(Res.string.logout),
                 modifier = Modifier.wrapContentSize(),
                 textAlign = TextAlign.Center
             )
