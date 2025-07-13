@@ -6,9 +6,7 @@ import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkRequest
-import android.os.Build
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -27,6 +25,7 @@ class AndroidNetworkMonitor(context: Context) : NetworkMonitor {
     override val isOnline: Flow<Boolean>
         get() = callbackFlow {
             val networkRequest = NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                 .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                 .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
@@ -36,19 +35,20 @@ class AndroidNetworkMonitor(context: Context) : NetworkMonitor {
             val callback = object : NetworkCallback() {
                 override fun onAvailable(network: Network) {
                     connectivityManager?.getNetworkCapabilities(network)?.let {
-                        val hasInternet = it.hasCapability(NET_CAPABILITY_INTERNET)
-                        println("onAvailable: $hasInternet")
+                        val hasInternet = it.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                         trySend(hasInternet)
                     }
                 }
 
                 override fun onLosing(network: Network, maxMsToLive: Int) {
-                    println("onLosing")
+                    trySend(false)
+                }
+
+                override fun onLost(network: Network) {
                     trySend(false)
                 }
 
                 override fun onUnavailable() {
-                    println("onUnavailable.")
                     trySend(false)
                 }
 
@@ -57,8 +57,7 @@ class AndroidNetworkMonitor(context: Context) : NetworkMonitor {
                     networkCapabilities: NetworkCapabilities
                 ) {
                     super.onCapabilitiesChanged(network, networkCapabilities)
-                    val hasInternet = networkCapabilities.hasCapability(NET_CAPABILITY_INTERNET)
-                    println("onCapabilitiesChanged: $hasInternet")
+                    val hasInternet = networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                     trySend(hasInternet)
                 }
             }
