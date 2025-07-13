@@ -3,6 +3,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -11,8 +12,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.compose_multiplatform
+import com.blankthings.baseapp.ui.HomeScreen
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SplashScreen(onLoadingDone: () -> Unit) {
@@ -33,5 +36,13 @@ fun SplashScreen(onLoadingDone: () -> Unit) {
             contentDescription = "App Logo",
             modifier = Modifier.size(128.dp)
         )
+    }
+}
+
+@Preview
+@Composable
+fun SplashScreenPreview() {
+    MaterialTheme {
+        SplashScreen {}
     }
 }

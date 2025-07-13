@@ -1,5 +1,6 @@
 package com.blankthings.baseapp.ui.settings
 
+import SplashScreen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,10 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.blankthings.baseapp.model.DarkThemeConfig
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SettingsScreen(viewModel: SettingsViewModel) {
+    // TODO - Do not pass viewModel to the composable.
+    // TODO - This breaks reusablity as it becomes tightly coupled with this particular VM.
     val settingsUiState: SettingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
     SettingsScreen(settingsUiState, viewModel::updateDarkThemeConfig)
 }
@@ -65,5 +70,13 @@ fun SettingsScreen(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun SettingsScreenPreview() {
+    MaterialTheme {
+        SettingsScreen(viewModel = viewModel())
     }
 }

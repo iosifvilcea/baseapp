@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -36,6 +37,7 @@ import com.blankthings.baseapp.component.BaOutlinedButton
 import com.blankthings.baseapp.model.AuthData
 import com.blankthings.baseapp.utils.dismissibleKeyboard
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun LoginScreen(
@@ -105,5 +107,13 @@ fun LoginScreen(
             onClick = onCreateAccountClicked,
             text = stringResource(Res.string.create_account)
         )
+    }
+}
+
+@Preview
+@Composable
+fun LoginScreenPreview() {
+    MaterialTheme {
+        LoginScreen()
     }
 }
