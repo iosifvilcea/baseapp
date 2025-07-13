@@ -29,6 +29,7 @@ import com.blankthings.baseapp.component.BottomNavBar
 import com.blankthings.baseapp.component.NoConnectionBar
 import com.blankthings.baseapp.component.TopAppBar
 import com.blankthings.baseapp.data.AuthRepositoryImpl
+import com.blankthings.baseapp.data.NoteRepositoryImpl
 import com.blankthings.baseapp.data.UserDataRepositoryImpl
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.NavigationHost
@@ -47,6 +48,7 @@ fun App() {
     val networkMonitor = AppDependencies.getNetworkMonitor()
     val dataStoreManager = AppDependencies.getDataStoreManager()
     val userDataRepository = UserDataRepositoryImpl(dataStoreManager)
+    val noteRepository = NoteRepositoryImpl()
 
     val navHostController: NavHostController = rememberNavController()
     val navAction = remember(navHostController) {
@@ -87,6 +89,7 @@ fun App() {
                 NavigationHost(
                     authRepository = authRepository,
                     userDataRepository = userDataRepository,
+                    noteRepository = noteRepository,
                     navActions = navAction,
                     snackbarHostState = snackbarHostState
                 )

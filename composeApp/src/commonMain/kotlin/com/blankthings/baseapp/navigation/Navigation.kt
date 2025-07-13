@@ -13,8 +13,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.blankthings.baseapp.data.AuthRepository
+import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.data.UserDataRepository
-import com.blankthings.baseapp.ui.HomeScreen
+import com.blankthings.baseapp.ui.home.HomeScreen
+import com.blankthings.baseapp.ui.home.HomeViewModel
 import com.blankthings.baseapp.ui.login.LoginRoute
 import com.blankthings.baseapp.ui.login.LoginViewModel
 import com.blankthings.baseapp.ui.settings.SettingsScreen
@@ -24,6 +26,7 @@ import com.blankthings.baseapp.ui.settings.SettingsViewModel
 fun NavigationHost(
     authRepository: AuthRepository,
     userDataRepository: UserDataRepository,
+    noteRepository: NoteRepository,
     navActions: NavActions,
     snackbarHostState: SnackbarHostState
 ) {
@@ -57,7 +60,10 @@ fun NavigationHost(
         }
         navigation<Routes.Authorized>(startDestination = Routes.Home) {
             composable<Routes.Home> {
-                HomeScreen()
+                val viewModel: HomeViewModel = viewModel(
+                    factory = HomeViewModel.provideFactory(noteRepository)
+                )
+                HomeScreen(viewModel.getNotes())
             }
             composable<Routes.Account> {
                 AccountScreen {

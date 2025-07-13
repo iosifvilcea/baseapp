@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.compose_multiplatform
-import com.blankthings.baseapp.ui.HomeScreen
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
