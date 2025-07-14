@@ -1,6 +1,7 @@
 package com.blankthings.baseapp.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,13 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.blankthings.baseapp.ui.home.HomeScreen
+import com.blankthings.baseapp.model.Note
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun BaCard(name: String, description: String, image: Int) {
+fun BaCard(note: Note, onNoteClicked: (Note) -> Unit) {
+    // TODO - Might want to remove Note dependency here and just use title, content, and pass in note ID back to callback.
     Card(
-        modifier = Modifier.padding(10.dp)
+        modifier = Modifier.clickable(onClick = { onNoteClicked(note) })
+            .padding(10.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
         shape = MaterialTheme.shapes.medium,
@@ -42,12 +45,12 @@ fun BaCard(name: String, description: String, image: Int) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = name,
+                    text = note.title,
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.background,
                 )
                 Text(
-                    text = description,
+                    text = note.content,
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -59,6 +62,7 @@ fun BaCard(name: String, description: String, image: Int) {
 @Composable
 fun CardPreview() {
     MaterialTheme {
-        BaCard("Title", "Content", 0)
+        val note = Note(0, "Title", "Content")
+        BaCard(note) {}
     }
 }

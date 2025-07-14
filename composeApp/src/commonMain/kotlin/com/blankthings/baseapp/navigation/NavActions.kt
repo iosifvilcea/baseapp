@@ -1,6 +1,7 @@
 package com.blankthings.baseapp.navigation
 
 import androidx.navigation.NavHostController
+import com.blankthings.baseapp.model.Note
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -50,6 +51,11 @@ class NavActions(val navHostController: NavHostController) {
             launchSingleTop = true
             restoreState = true
         }
+    }
+
+    val navigateToNote: (Note) -> Unit = {
+        // TODO - Navigate to Note Screen.
+        println("Go To Note: " + it.id + " " + it.title)
     }
 
     val navigateToAccount: () -> Unit = {

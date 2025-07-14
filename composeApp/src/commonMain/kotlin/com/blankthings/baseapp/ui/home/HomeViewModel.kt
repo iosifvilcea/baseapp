@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.blankthings.baseapp.data.NoteRepository
-import com.blankthings.baseapp.data.UserDataRepository
-import com.blankthings.baseapp.ui.settings.SettingsViewModel
 import kotlin.reflect.KClass
 
 class HomeViewModel(private val noteRepository: NoteRepository): ViewModel() {

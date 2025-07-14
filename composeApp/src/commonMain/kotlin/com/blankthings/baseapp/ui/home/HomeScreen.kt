@@ -19,7 +19,7 @@ import com.blankthings.baseapp.model.Note
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun HomeScreen(notes: List<Note>) {
+fun HomeScreen(notes: List<Note>, onNoteClicked: (Note) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -33,7 +33,7 @@ fun HomeScreen(notes: List<Note>) {
             )
         }
         items(notes) { note ->
-            BaCard(note.title, note.content, note.id)
+            BaCard(note, onNoteClicked)
         }
     }
 }
@@ -42,6 +42,7 @@ fun HomeScreen(notes: List<Note>) {
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {
-        HomeScreen(mutableListOf(Note(0, "title", "content")))
+        val notes = mutableListOf(Note(0, "title", "content"))
+        HomeScreen(notes) {}
     }
 }

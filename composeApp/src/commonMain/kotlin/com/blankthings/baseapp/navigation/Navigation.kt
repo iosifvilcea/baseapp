@@ -63,7 +63,9 @@ fun NavigationHost(
                 val viewModel: HomeViewModel = viewModel(
                     factory = HomeViewModel.provideFactory(noteRepository)
                 )
-                HomeScreen(viewModel.getNotes())
+                HomeScreen(viewModel.getNotes()) { note ->
+                    navActions.navigateToNote.invoke(note)
+                }
             }
             composable<Routes.Account> {
                 AccountScreen {
