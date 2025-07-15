@@ -22,10 +22,9 @@ import com.blankthings.baseapp.model.Note
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun BaCard(note: Note, onNoteClicked: (Note) -> Unit) {
-    // TODO - Might want to remove Note dependency here and just use title, content, and pass in note ID back to callback.
+fun BaCard(id: Int, title: String, content: String, onNoteClicked: (Int) -> Unit) {
     Card(
-        modifier = Modifier.clickable(onClick = { onNoteClicked(note) })
+        modifier = Modifier.clickable(onClick = { onNoteClicked(id) })
             .padding(10.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
@@ -45,12 +44,12 @@ fun BaCard(note: Note, onNoteClicked: (Note) -> Unit) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = note.title,
+                    text = title,
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.background,
                 )
                 Text(
-                    text = note.content,
+                    text = content,
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -62,7 +61,6 @@ fun BaCard(note: Note, onNoteClicked: (Note) -> Unit) {
 @Composable
 fun CardPreview() {
     MaterialTheme {
-        val note = Note(0, "Title", "Content")
-        BaCard(note) {}
+        BaCard(0, "Title", "Content") {}
     }
 }

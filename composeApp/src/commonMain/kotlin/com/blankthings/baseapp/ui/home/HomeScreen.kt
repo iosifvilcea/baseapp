@@ -19,7 +19,7 @@ import com.blankthings.baseapp.model.Note
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun HomeScreen(notes: List<Note>, onNoteClicked: (Note) -> Unit) {
+fun HomeScreen(notes: List<Note>, onNoteClicked: (Int) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -33,7 +33,7 @@ fun HomeScreen(notes: List<Note>, onNoteClicked: (Note) -> Unit) {
             )
         }
         items(notes) { note ->
-            BaCard(note, onNoteClicked)
+            BaCard(note.id, note.title, note.content, onNoteClicked)
         }
     }
 }

@@ -16,6 +16,8 @@ sealed interface Routes {
     @Serializable data object HomeBase: Routes
     @Serializable data object Home: Routes
 
+    @Serializable data object Note: Routes
+
     @Serializable data object Account: Routes
     @Serializable data object Settings: Routes
 }
@@ -53,9 +55,8 @@ class NavActions(val navHostController: NavHostController) {
         }
     }
 
-    val navigateToNote: (Note) -> Unit = {
+    val navigateToNote: (Int) -> Unit = {
         // TODO - Navigate to Note Screen.
-        println("Go To Note: " + it.id + " " + it.title)
     }
 
     val navigateToAccount: () -> Unit = {
