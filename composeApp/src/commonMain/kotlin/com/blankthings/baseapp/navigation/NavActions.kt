@@ -56,7 +56,13 @@ class NavActions(val navHostController: NavHostController) {
     }
 
     val navigateToNote: (Int) -> Unit = {
-        // TODO - Navigate to Note Screen.
+        navHostController.navigate(Routes.Note) {
+            popUpTo<Routes.HomeBase> {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
     }
 
     val navigateToAccount: () -> Unit = {
