@@ -68,7 +68,7 @@ fun NavigationHost(
                     navActions.navigateToNote.invoke(noteId)
                 }
             }
-            navigation<Routes.HomeBase>(startDestination = Routes.Home) {
+            navigation<Routes.HomeBase>(startDestination = Routes.Note) {
                 composable<Routes.Note> {
                     NoteScreen()
                 }
