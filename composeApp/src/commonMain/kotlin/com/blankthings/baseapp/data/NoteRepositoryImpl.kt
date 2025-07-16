@@ -27,4 +27,8 @@ class NoteRepositoryImpl : NoteRepository {
     override suspend fun deleteNote(note: Note) {
         notes.remove(note)
     }
+
+    override fun getNote(noteId: Int): Note {
+        return notes.firstOrNull { it.id == noteId } ?: Note(-1, "", "")
+    }
 }

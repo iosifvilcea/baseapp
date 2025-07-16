@@ -16,7 +16,7 @@ sealed interface Routes {
     @Serializable data object HomeBase: Routes
     @Serializable data object Home: Routes
 
-    @Serializable data object Note: Routes
+    @Serializable data class Note(val noteId: Int): Routes
 
     @Serializable data object Account: Routes
     @Serializable data object Settings: Routes
@@ -56,7 +56,7 @@ class NavActions(val navHostController: NavHostController) {
     }
 
     val navigateToNote: (Int) -> Unit = {
-        navHostController.navigate(Routes.Note) {
+        navHostController.navigate(Routes.Note(it)) {
             popUpTo<Routes.HomeBase> {
                 saveState = true
             }

@@ -12,6 +12,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.toRoute
 import com.blankthings.baseapp.data.AuthRepository
 import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.data.UserDataRepository
@@ -68,12 +69,11 @@ fun NavigationHost(
                     navActions.navigateToNote.invoke(noteId)
                 }
             }
-            navigation<Routes.HomeBase>(startDestination = Routes.Note) {
-                composable<Routes.Note> {
-                    NoteScreen()
-                }
+            composable<Routes.Note> {
+                val noteId = it.toRoute<Routes.Note>().noteId
+                val note = noteRepository.getNote(noteId)
+                NoteScreen(note.title, note.content)
             }
-
             composable<Routes.Account> {
                 AccountScreen {
                     navActions.navigateToLogin.invoke()
