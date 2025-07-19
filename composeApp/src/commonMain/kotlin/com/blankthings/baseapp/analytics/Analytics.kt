@@ -1,5 +1,6 @@
 package com.blankthings.baseapp.analytics
 
+// TODO - Create a wrapper to be used by iOS and Android using expect / actual.
 object Analytics {
     private var isTrackingEnabled: Boolean = true
 

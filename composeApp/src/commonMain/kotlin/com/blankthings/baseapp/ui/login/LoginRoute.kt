@@ -21,6 +21,7 @@ fun LoginRoute(
     navActions: NavActions,
     snackbarHostState: SnackbarHostState
 ) {
+    // TODO - Do not pass viewModel to the composable.
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
 
     when (val currentState = uiState) {

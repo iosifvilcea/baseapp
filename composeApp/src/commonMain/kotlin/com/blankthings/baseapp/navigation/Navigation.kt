@@ -17,6 +17,7 @@ import com.blankthings.baseapp.data.AuthRepository
 import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.data.UserDataRepository
 import com.blankthings.baseapp.ui.NoteScreen
+import com.blankthings.baseapp.ui.account.AccountViewModel
 import com.blankthings.baseapp.ui.home.HomeScreen
 import com.blankthings.baseapp.ui.home.HomeViewModel
 import com.blankthings.baseapp.ui.login.LoginRoute
@@ -75,6 +76,7 @@ fun NavigationHost(
                 NoteScreen(note.title, note.content)
             }
             composable<Routes.Account> {
+                val viewModel: AccountViewModel = viewModel()
                 AccountScreen {
                     navActions.navigateToLogin.invoke()
                 }
