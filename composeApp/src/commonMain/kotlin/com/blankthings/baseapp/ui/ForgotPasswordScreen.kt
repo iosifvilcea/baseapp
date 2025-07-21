@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.email_address
 import baseapp.composeapp.generated.resources.reset_password_prompt
+import com.blankthings.baseapp.component.AppIcons
 import com.blankthings.baseapp.component.BaOutlinedButton
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -38,7 +39,7 @@ fun ForgotPasswordScreen(onForgotPasswordClick: () -> Unit) {
         OutlinedTextField(
             value = email.value,
             onValueChange = { email.value = it },
-            leadingIcon = { Icon(Icons.Default.Info, contentDescription = "") },
+            leadingIcon = { Icon(AppIcons.Info, contentDescription = "") },
             label = { Text(text = stringResource(Res.string.email_address)) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp)
         )

@@ -33,6 +33,7 @@ import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
+import com.blankthings.baseapp.component.AppIcons
 import com.blankthings.baseapp.component.BaOutlinedButton
 import com.blankthings.baseapp.model.AuthData
 import com.blankthings.baseapp.utils.dismissibleKeyboard
@@ -66,7 +67,7 @@ fun LoginScreen(
         OutlinedTextField(
             value = username.value,
             onValueChange = { username.value = it },
-            leadingIcon = { Icon(Icons.Default.Person, contentDescription = usernameLabel) },
+            leadingIcon = { Icon(AppIcons.Person, contentDescription = usernameLabel) },
             label = { Text(text = usernameLabel) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp),
             singleLine = true,
@@ -77,7 +78,7 @@ fun LoginScreen(
         OutlinedTextField(
             value = password.value,
             onValueChange = { password.value = it },
-            leadingIcon = { Icon(Icons.Default.Info, contentDescription = passwordLabel) },
+            leadingIcon = { Icon(AppIcons.Info, contentDescription = passwordLabel) },
             label = { Text(text = passwordLabel) },
             modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp, 0.dp, 0.dp),
             visualTransformation = PasswordVisualTransformation(),

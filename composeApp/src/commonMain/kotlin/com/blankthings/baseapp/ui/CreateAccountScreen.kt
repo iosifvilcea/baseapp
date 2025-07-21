@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.blankthings.baseapp.component.AppIcons
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -60,7 +61,7 @@ fun CreateAccountScreen() {
                 trailingIcon = {
                     IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
                         Icon(
-                            imageVector = if (passwordVisible.value) Icons.Default.AccountBox else Icons.Default.AccountCircle,
+                            imageVector = if (passwordVisible.value) AppIcons.AccountBox else AppIcons.AccountCircle,
                             contentDescription = if (passwordVisible.value) "Hide password" else "Show password"
                         )
                     }
