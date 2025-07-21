@@ -86,6 +86,11 @@ fun App() {
             }
         ) { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
+                networkMonitor.isOnline.collectAsState(initial = true).value.let { isOnline ->
+                    if (!isOnline) {
+                        NoConnectionBar()
+                    }
+                }
                 NavigationHost(
                     authRepository = authRepository,
                     userDataRepository = userDataRepository,
@@ -93,13 +98,7 @@ fun App() {
                     navActions = navAction,
                     snackbarHostState = snackbarHostState
                 )
-                networkMonitor.isOnline.collectAsState(initial = true).value.let { isOnline ->
-                    if (!isOnline) {
-                        NoConnectionBar()
-                    }
-                }
             }
-
             printBackStack(navController = navHostController)
         }
     }

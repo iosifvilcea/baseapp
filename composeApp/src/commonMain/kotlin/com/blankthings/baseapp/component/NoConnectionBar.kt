@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.error_no_internet_connection
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun NoConnectionBar() {
@@ -29,5 +31,13 @@ fun NoConnectionBar() {
             textAlign = TextAlign.Center,
             color = Color.White
         )
+    }
+}
+
+@Preview
+@Composable
+fun NoConnectionBarPreview() {
+    MaterialTheme {
+        NoConnectionBar()
     }
 }

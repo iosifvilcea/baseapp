@@ -99,13 +99,13 @@ fun LoginScreen(
         }
 
         BaOutlinedButton(
-            onClick = { onLoginClicked.invoke(AuthData(username.value, password.value)) },
-            text = stringResource(Res.string.login)
+            text = stringResource(Res.string.login),
+            onClick = { onLoginClicked.invoke(AuthData(username.value, password.value)) }
         )
 
         BaOutlinedButton(
-            onClick = onCreateAccountClicked,
-            text = stringResource(Res.string.create_account)
+            text = stringResource(Res.string.create_account),
+            onClick = onCreateAccountClicked
         )
     }
 }

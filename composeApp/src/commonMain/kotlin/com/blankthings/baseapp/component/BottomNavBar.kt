@@ -1,11 +1,13 @@
 package com.blankthings.baseapp.component
 
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.TopDestinations
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun BottomNavBar(currentRoute: String, topDestinations: List<TopDestinations>, navActions: NavActions) {

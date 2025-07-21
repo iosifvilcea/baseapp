@@ -44,8 +44,8 @@ fun ForgotPasswordScreen(onForgotPasswordClick: () -> Unit) {
         )
 
         BaOutlinedButton(
-            onClick = onForgotPasswordClick,
-            text = "Send"
+            text = "Send",
+            onClick = onForgotPasswordClick
         )
     }
 }
