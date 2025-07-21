@@ -73,7 +73,9 @@ fun NavigationHost(
             composable<Routes.Note> {
                 val noteId = it.toRoute<Routes.Note>().noteId
                 val note = noteRepository.getNote(noteId)
-                NoteScreen(note.title, note.content)
+                NoteScreen(note.title, note.content) {
+                    navActions.navHostController.popBackStack()
+                }
             }
             composable<Routes.Account> {
                 val viewModel: AccountViewModel = viewModel()
