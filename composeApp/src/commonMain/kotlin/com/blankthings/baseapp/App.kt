@@ -35,6 +35,8 @@ import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.Routes
 import com.blankthings.baseapp.navigation.TopDestinations
+import com.blankthings.baseapp.ui.AppState
+import com.blankthings.baseapp.ui.rememberAppState
 import com.blankthings.baseapp.utils.Constants
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -49,16 +51,13 @@ fun App() {
     val dataStoreManager = AppDependencies.getDataStoreManager()
     val userDataRepository = UserDataRepositoryImpl(dataStoreManager)
     val noteRepository = NoteRepositoryImpl()
-
-    val navHostController: NavHostController = rememberNavController()
-    val navAction = remember(navHostController) {
-        NavActions(navHostController)
-    }
     val authRepository = AuthRepositoryImpl(httpClient)
 
-    val currentRoute = navHostController
+    val appState = rememberAppState(networkMonitor = networkMonitor)
+
+    val currentRoute = appState.navController
         .currentBackStackEntryFlow
-        .collectAsState(initial = navHostController.currentBackStackEntry)
+        .collectAsState(initial = appState.navController.currentBackStackEntry)
         .value?.destination?.route ?: Routes.Login.toString()
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -81,25 +80,25 @@ fun App() {
                     visible = showNavBars(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it }),
-                    content = { BottomNavBar(currentRoute, topDestinations, navAction) }
+                    content = { BottomNavBar(currentRoute, topDestinations, appState.navActions) }
                 )
             }
         ) { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
+                NavigationHost(
+                    authRepository = authRepository,
+                    userDataRepository = userDataRepository,
+                    noteRepository = noteRepository,
+                    navActions = appState.navActions,
+                    snackbarHostState = snackbarHostState
+                )
                 networkMonitor.isOnline.collectAsState(initial = true).value.let { isOnline ->
                     if (!isOnline) {
                         NoConnectionBar()
                     }
                 }
-                NavigationHost(
-                    authRepository = authRepository,
-                    userDataRepository = userDataRepository,
-                    noteRepository = noteRepository,
-                    navActions = navAction,
-                    snackbarHostState = snackbarHostState
-                )
             }
-            printBackStack(navController = navHostController)
+            printBackStack(navController = appState.navController)
         }
     }
 }
