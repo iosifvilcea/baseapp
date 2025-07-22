@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration.Indefinite
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -15,27 +16,24 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.account
 import baseapp.composeapp.generated.resources.app_name
+import baseapp.composeapp.generated.resources.error_no_internet_connection
 import baseapp.composeapp.generated.resources.home
 import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
 import com.blankthings.baseapp.component.BottomNavBar
-import com.blankthings.baseapp.component.NoConnectionBar
 import com.blankthings.baseapp.component.TopAppBar
 import com.blankthings.baseapp.data.AuthRepositoryImpl
 import com.blankthings.baseapp.data.NoteRepositoryImpl
 import com.blankthings.baseapp.data.UserDataRepositoryImpl
-import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.Routes
 import com.blankthings.baseapp.navigation.TopDestinations
-import com.blankthings.baseapp.ui.AppState
 import com.blankthings.baseapp.ui.rememberAppState
 import com.blankthings.baseapp.utils.Constants
 import org.jetbrains.compose.resources.stringResource
@@ -92,9 +90,14 @@ fun App() {
                     navActions = appState.navActions,
                     snackbarHostState = snackbarHostState
                 )
-                networkMonitor.isOnline.collectAsState(initial = true).value.let { isOnline ->
-                    if (!isOnline) {
-                        NoConnectionBar()
+                val isOffline by appState.isOffline.collectAsStateWithLifecycle()
+                val notConnectedMessage = stringResource(Res.string.error_no_internet_connection)
+                LaunchedEffect(isOffline) {
+                    if (isOffline) {
+                        snackbarHostState.showSnackbar(
+                            message = notConnectedMessage,
+                            duration = Indefinite,
+                        )
                     }
                 }
             }
