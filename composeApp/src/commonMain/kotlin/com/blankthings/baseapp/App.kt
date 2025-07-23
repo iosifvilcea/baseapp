@@ -60,8 +60,6 @@ fun App() {
 
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val topDestinations: List<TopDestinations> = TopDestinations.entries
-
     MaterialTheme {
         Scaffold(
             topBar = {
@@ -78,7 +76,7 @@ fun App() {
                     visible = showNavBars(currentRoute),
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it }),
-                    content = { BottomNavBar(currentRoute, topDestinations, appState.navActions) }
+                    content = { BottomNavBar(currentRoute, appState.navActions) }
                 )
             }
         ) { paddingValues ->

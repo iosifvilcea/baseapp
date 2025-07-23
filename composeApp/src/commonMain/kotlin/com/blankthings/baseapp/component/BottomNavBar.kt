@@ -10,9 +10,9 @@ import com.blankthings.baseapp.navigation.TopDestinations
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun BottomNavBar(currentRoute: String, topDestinations: List<TopDestinations>, navActions: NavActions) {
+fun BottomNavBar(currentRoute: String, navActions: NavActions) {
     NavigationBar {
-        topDestinations.forEach { topDestination ->
+        TopDestinations.entries.forEach { topDestination ->
             // TODO - Fix this. Shouldn't be a string comparison.
             val isSelected = currentRoute.contains(topDestination.route.toString())
             NavigationBarItem(
