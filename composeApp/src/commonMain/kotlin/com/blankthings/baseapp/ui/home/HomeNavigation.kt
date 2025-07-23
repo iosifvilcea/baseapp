@@ -8,7 +8,9 @@ import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.navigation.Routes
 import kotlinx.serialization.Serializable
 
-@Serializable data object HomeRoute
+@Serializable object BaseHomeRoute
+
+@Serializable object HomeRoute
 
 fun NavController.navigateToHome() {
     navigate(HomeRoute) {

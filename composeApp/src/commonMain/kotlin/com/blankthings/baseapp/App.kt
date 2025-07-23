@@ -18,13 +18,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
 import baseapp.composeapp.generated.resources.Res
-import baseapp.composeapp.generated.resources.account
 import baseapp.composeapp.generated.resources.app_name
 import baseapp.composeapp.generated.resources.error_no_internet_connection
-import baseapp.composeapp.generated.resources.home
-import baseapp.composeapp.generated.resources.settings
 import com.blankthings.baseapp.analytics.Analytics
 import com.blankthings.baseapp.analytics.AnalyticsEvent
 import com.blankthings.baseapp.component.BottomNavBar
@@ -33,9 +31,8 @@ import com.blankthings.baseapp.data.AuthRepositoryImpl
 import com.blankthings.baseapp.data.NoteRepositoryImpl
 import com.blankthings.baseapp.data.UserDataRepositoryImpl
 import com.blankthings.baseapp.navigation.NavigationHost
-import com.blankthings.baseapp.navigation.Routes
+import com.blankthings.baseapp.navigation.TopDestinations
 import com.blankthings.baseapp.ui.rememberAppState
-import com.blankthings.baseapp.utils.Constants
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -52,28 +49,14 @@ fun App() {
     val authRepository = AuthRepositoryImpl(httpClient)
 
     val appState = rememberAppState(networkMonitor = networkMonitor)
-
-    val currentRoute = appState.navController
-        .currentBackStackEntryFlow
-        .collectAsState(initial = appState.navController.currentBackStackEntry)
-        .value?.destination?.route ?: Routes.Login.toString()
-
-    val dest = appState.navController
-        .currentBackStackEntryFlow
-        .collectAsState(initial = appState.navController.currentBackStackEntry)
-        .value?.destination
-
-    println("Route:" + dest?.route)
-    println("parent: " + dest?.parent?.route)
-    dest?.hierarchy?.forEach { println("Hierarchy: " + it.route) }
-
     val snackbarHostState = remember { SnackbarHostState() }
 
+    val isSelected = appState.currentDestination?.isRouteTopDestination() == true
     MaterialTheme {
         Scaffold(
             topBar = {
                 AnimatedVisibility(
-                    visible = showNavBars(currentRoute),
+                    visible = isSelected,
                     enter = slideInVertically(initialOffsetY = { -it }),
                     exit = slideOutVertically(targetOffsetY = { -it }),
                     content = { TopAppBar(title = stringResource(Res.string.app_name)) }
@@ -82,10 +65,10 @@ fun App() {
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             bottomBar = {
                 AnimatedVisibility(
-                    visible = showNavBars(currentRoute),
+                    visible = isSelected,
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it }),
-                    content = { BottomNavBar(currentRoute, appState.navActions) }
+                    content = { BottomNavBar(appState) }
                 )
             }
         ) { paddingValues ->
@@ -122,11 +105,10 @@ fun printBackStack(navController: NavController) {
     }
 }
 
-@Composable
-fun showNavBars(route: String): Boolean =
-    when (route.substringAfterLast(Constants.DELIMITER_DOT)) {
-        stringResource(Res.string.home) -> true
-        stringResource(Res.string.account) -> true
-        stringResource(Res.string.settings) -> true
-        else -> false
-    }
+private fun NavDestination?.isRouteTopDestination(): Boolean {
+    return this?.let {
+        TopDestinations.entries.any { topDestination ->
+            hasRoute(topDestination.route)
+        }
+    } ?: false
+}

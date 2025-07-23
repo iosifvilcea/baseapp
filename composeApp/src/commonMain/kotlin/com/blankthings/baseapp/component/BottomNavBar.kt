@@ -1,30 +1,30 @@
 package com.blankthings.baseapp.component
 
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavDestination.Companion.hasRoute
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.TopDestinations
+import com.blankthings.baseapp.ui.AppState
 import com.blankthings.baseapp.ui.account.navigateToAccount
 import com.blankthings.baseapp.ui.home.navigateToHome
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.blankthings.baseapp.ui.settings.navigateToSettings
 
 @Composable
-fun BottomNavBar(currentRoute: String, navActions: NavActions) {
+fun BottomNavBar(appState: AppState) {
     NavigationBar {
         TopDestinations.entries.forEach { topDestination ->
-            // TODO - Fix this. Shouldn't be a string comparison.
-            val isSelected = currentRoute.contains(topDestination.route.toString())
+            val isSelected = appState.currentDestination?.hasRoute(topDestination.route) == true
             NavigationBarItem(
                 icon = { Icon( imageVector = topDestination.icon, contentDescription = topDestination.contentDescription) },
                 selected = isSelected,
                 onClick = {
                     when (topDestination) {
-                        TopDestinations.HOME -> navActions.navHostController::navigateToHome
-                        TopDestinations.ACCOUNT -> navActions.navHostController::navigateToAccount
-                        TopDestinations.SETTINGS -> navActions.navigateToSettings()
+                        TopDestinations.HOME -> appState.navController.navigateToHome()
+                        TopDestinations.ACCOUNT -> appState.navController.navigateToAccount()
+                        TopDestinations.SETTINGS -> appState.navController.navigateToSettings()
                     }
                 }
             )

@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.blankthings.baseapp.navigation.Routes
 import kotlinx.serialization.Serializable
 
-@Serializable data object AccountRoute
+@Serializable object AccountRoute
 
 fun NavController.navigateToAccount() {
     navigate(AccountRoute) {
@@ -23,7 +23,7 @@ fun NavController.navigateToAccount() {
 fun NavGraphBuilder.accountScreen(
     onLogoutClicked: () -> Unit
 ) {
-    composable<Routes.Account> {
+    composable<AccountRoute> {
         val viewModel: AccountViewModel = viewModel()
         AccountScreen(onLogoutClicked)
     }

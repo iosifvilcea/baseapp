@@ -1,6 +1,5 @@
 package com.blankthings.baseapp.navigation
 
-import AccountScreen
 import CreateAccountScreen
 import ForgotPasswordScreen
 import SplashScreen
@@ -17,15 +16,12 @@ import com.blankthings.baseapp.data.AuthRepository
 import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.data.UserDataRepository
 import com.blankthings.baseapp.ui.NoteScreen
-import com.blankthings.baseapp.ui.account.AccountViewModel
 import com.blankthings.baseapp.ui.account.accountScreen
 import com.blankthings.baseapp.ui.home.HomeRoute
 import com.blankthings.baseapp.ui.home.homeScreen
 import com.blankthings.baseapp.ui.login.LoginRoute
 import com.blankthings.baseapp.ui.login.LoginViewModel
-import com.blankthings.baseapp.ui.settings.SettingsScreen
-import com.blankthings.baseapp.ui.settings.SettingsViewModel
-import kotlin.invoke
+import com.blankthings.baseapp.ui.settings.settingsScreen
 
 @Composable
 fun NavigationHost(
@@ -56,9 +52,6 @@ fun NavigationHost(
                 snackbarHostState = snackbarHostState
             )
         }
-        homeScreen(noteRepository) {
-            navActions.navigateToNote.invoke(it)
-        }
         composable<Routes.CreateAccount> {
             CreateAccountScreen()
         }
@@ -68,6 +61,9 @@ fun NavigationHost(
             }
         }
         navigation<Routes.Authorized>(startDestination = HomeRoute) {
+            homeScreen(noteRepository) {
+                navActions.navigateToNote.invoke(it)
+            }
             composable<Routes.Note> {
                 val noteId = it.toRoute<Routes.Note>().noteId
                 val note = noteRepository.getNote(noteId)
@@ -78,12 +74,7 @@ fun NavigationHost(
             accountScreen {
                 navActions.navigateToLogin.invoke()
             }
-            composable<Routes.Settings> {
-                val viewModel: SettingsViewModel = viewModel(
-                    factory = SettingsViewModel.provideFactory(userDataRepository)
-                )
-                SettingsScreen(viewModel)
-            }
+            settingsScreen(userDataRepository)
         }
     }
 }
