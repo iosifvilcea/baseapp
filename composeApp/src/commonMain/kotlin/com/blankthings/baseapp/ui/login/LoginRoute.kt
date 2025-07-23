@@ -32,7 +32,6 @@ fun LoginRoute(
         is AuthUiState.Failure -> {
             loginScreen(
                 loginViewModel = loginViewModel,
-                navActions = navActions,
                 showLoadingScreen = false
             )
 
@@ -44,7 +43,6 @@ fun LoginRoute(
         else -> {
             loginScreen(
                 loginViewModel = loginViewModel,
-                navActions = navActions,
                 showLoadingScreen = currentState is AuthUiState.Loading
             )
         }
@@ -54,14 +52,9 @@ fun LoginRoute(
 @Composable
 fun loginScreen(
     loginViewModel: LoginViewModel,
-    navActions: NavActions,
     showLoadingScreen: Boolean = false
 ) {
-    LoginScreen(
-        onForgotAccountClicked = navActions.navigateToForgotPassword,
-        onLoginClicked = loginViewModel::login,
-        onCreateAccountClicked = navActions.navigateToCreateAccount
-    )
+    LoginScreen(onLoginClicked = loginViewModel::login)
     if (showLoadingScreen) {
         Box(modifier = Modifier
             .fillMaxSize()

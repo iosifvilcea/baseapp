@@ -4,17 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,13 +18,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import baseapp.composeapp.generated.resources.BLANK
 import baseapp.composeapp.generated.resources.Res
-import baseapp.composeapp.generated.resources.create_account
-import baseapp.composeapp.generated.resources.forgot_password
 import baseapp.composeapp.generated.resources.login
 import baseapp.composeapp.generated.resources.password
 import baseapp.composeapp.generated.resources.username
@@ -41,11 +32,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun LoginScreen(
-    onForgotAccountClicked: () -> Unit = {},
-    onLoginClicked: (AuthData) -> Unit = { _ -> },
-    onCreateAccountClicked: () -> Unit = {}
-) {
+fun LoginScreen(onLoginClicked: (AuthData) -> Unit = { _ -> }) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
@@ -87,26 +74,9 @@ fun LoginScreen(
             keyboardActions = keyboardActions
         )
 
-        TextButton(
-            onClick = onForgotAccountClicked,
-            modifier = Modifier.wrapContentSize().padding(0.dp, 20.dp, 0.dp, 0.dp),
-        ) {
-            Text(
-                text = stringResource(Res.string.forgot_password),
-                modifier = Modifier.fillMaxWidth().padding(5.dp),
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp
-            )
-        }
-
         BaOutlinedButton(
             text = stringResource(Res.string.login),
             onClick = { onLoginClicked.invoke(AuthData(username.value, password.value)) }
-        )
-
-        BaOutlinedButton(
-            text = stringResource(Res.string.create_account),
-            onClick = onCreateAccountClicked
         )
     }
 }

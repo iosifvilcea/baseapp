@@ -1,7 +1,5 @@
 package com.blankthings.baseapp.navigation
 
-import CreateAccountScreen
-import ForgotPasswordScreen
 import SplashScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarHostState
@@ -51,14 +49,6 @@ fun NavigationHost(
                 navActions = navActions,
                 snackbarHostState = snackbarHostState
             )
-        }
-        composable<Routes.CreateAccount> {
-            CreateAccountScreen()
-        }
-        composable<Routes.ForgotPassword> {
-            ForgotPasswordScreen {
-                navActions.navigateToLogin.invoke()
-            }
         }
         navigation<Routes.Authorized>(startDestination = HomeRoute) {
             homeScreen(noteRepository) {
