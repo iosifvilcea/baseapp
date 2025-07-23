@@ -54,16 +54,6 @@ class NavActions(val navHostController: NavHostController) {
         }
     }
 
-    val navigateToAccount: () -> Unit = {
-        navHostController.navigate(Routes.Account) {
-            popUpTo<Routes.Authorized> {
-                saveState = true
-            }
-            launchSingleTop = true
-            restoreState = true
-        }
-    }
-
     val navigateToSettings: () -> Unit = {
         navHostController.navigate(Routes.Settings) {
             popUpTo<Routes.Authorized> {

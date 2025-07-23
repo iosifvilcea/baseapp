@@ -18,12 +18,14 @@ import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.data.UserDataRepository
 import com.blankthings.baseapp.ui.NoteScreen
 import com.blankthings.baseapp.ui.account.AccountViewModel
+import com.blankthings.baseapp.ui.account.accountScreen
 import com.blankthings.baseapp.ui.home.HomeRoute
 import com.blankthings.baseapp.ui.home.homeScreen
 import com.blankthings.baseapp.ui.login.LoginRoute
 import com.blankthings.baseapp.ui.login.LoginViewModel
 import com.blankthings.baseapp.ui.settings.SettingsScreen
 import com.blankthings.baseapp.ui.settings.SettingsViewModel
+import kotlin.invoke
 
 @Composable
 fun NavigationHost(
@@ -73,11 +75,8 @@ fun NavigationHost(
                     navActions.navHostController.popBackStack()
                 }
             }
-            composable<Routes.Account> {
-                val viewModel: AccountViewModel = viewModel()
-                AccountScreen {
-                    navActions.navigateToLogin.invoke()
-                }
+            accountScreen {
+                navActions.navigateToLogin.invoke()
             }
             composable<Routes.Settings> {
                 val viewModel: SettingsViewModel = viewModel(
