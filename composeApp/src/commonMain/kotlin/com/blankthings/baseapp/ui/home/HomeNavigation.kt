@@ -5,7 +5,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.blankthings.baseapp.data.NoteRepository
-import com.blankthings.baseapp.navigation.Routes
 import kotlinx.serialization.Serializable
 
 

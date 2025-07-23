@@ -1,4 +1,4 @@
-package com.blankthings.baseapp.ui
+package com.blankthings.baseapp.ui.note
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

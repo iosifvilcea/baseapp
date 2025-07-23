@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.blankthings.baseapp.ui.AppState
+import com.blankthings.baseapp.navigation.AppState
 import com.blankthings.baseapp.ui.home.navigateToHome
 import com.blankthings.baseapp.utils.ErrorType
 import org.jetbrains.compose.resources.stringResource

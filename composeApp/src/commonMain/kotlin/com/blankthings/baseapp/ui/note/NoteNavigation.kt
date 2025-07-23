@@ -1,18 +1,21 @@
-package com.blankthings.baseapp.ui.settings
+package com.blankthings.baseapp.ui.note
 
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.blankthings.baseapp.data.UserDataRepository
-import com.blankthings.baseapp.ui.home.AuthorizedRoute
+import com.blankthings.baseapp.ui.home.BaseHomeRoute
+import com.blankthings.baseapp.ui.settings.SettingsScreen
+import com.blankthings.baseapp.ui.settings.SettingsViewModel
 import kotlinx.serialization.Serializable
 
-@Serializable object SettingsRoute
+@Serializable
+class NoteRoute(val noteId: Int)
 
-fun NavController.navigateToSettings() {
-    navigate(SettingsRoute) {
-        popUpTo<AuthorizedRoute> {
+fun NavController.navigateToNote(noteId: Int) {
+    navigate(NoteRoute(noteId)) {
+        popUpTo<BaseHomeRoute> {
             saveState = true
         }
         launchSingleTop = true
@@ -20,12 +23,12 @@ fun NavController.navigateToSettings() {
     }
 }
 
-fun NavGraphBuilder.settingsScreen(
+fun NavGraphBuilder.noteScreen(
     userDataRepository: UserDataRepository
 ) {
-    composable<SettingsRoute> {
+    composable<NoteRoute> {
         val viewModel: SettingsViewModel = viewModel(
-            factory = SettingsViewModel.provideFactory(userDataRepository)
+            factory = SettingsViewModel.Companion.provideFactory(userDataRepository)
         )
         SettingsScreen(viewModel)
     }

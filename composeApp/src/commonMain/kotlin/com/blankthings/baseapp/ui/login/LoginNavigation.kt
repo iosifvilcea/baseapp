@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.blankthings.baseapp.data.AuthRepository
-import com.blankthings.baseapp.ui.AppState
+import com.blankthings.baseapp.navigation.AppState
 import com.blankthings.baseapp.utils.ErrorType
 import kotlinx.serialization.Serializable
 

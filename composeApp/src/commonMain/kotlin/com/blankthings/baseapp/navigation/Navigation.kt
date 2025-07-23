@@ -11,15 +11,17 @@ import androidx.navigation.toRoute
 import com.blankthings.baseapp.data.AuthRepository
 import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.data.UserDataRepository
-import com.blankthings.baseapp.ui.AppState
-import com.blankthings.baseapp.ui.NoteScreen
+import com.blankthings.baseapp.ui.note.NoteScreen
 import com.blankthings.baseapp.ui.account.accountScreen
 import com.blankthings.baseapp.ui.home.AuthorizedRoute
 import com.blankthings.baseapp.ui.home.HomeRoute
 import com.blankthings.baseapp.ui.home.homeScreen
 import com.blankthings.baseapp.ui.login.loginScreen
 import com.blankthings.baseapp.ui.login.navigateToLogin
+import com.blankthings.baseapp.ui.note.NoteRoute
+import com.blankthings.baseapp.ui.note.navigateToNote
 import com.blankthings.baseapp.ui.settings.settingsScreen
+import com.blankthings.baseapp.ui.splash.SplashRoute
 import com.blankthings.baseapp.utils.ErrorType
 
 @Composable
@@ -33,20 +35,19 @@ fun NavigationHost(
     val navController = appState.navController
     NavHost(
         navController = navController,
-        startDestination = Routes.Splash,
+        startDestination = SplashRoute,
         modifier = Modifier.fillMaxSize()
     ) {
-        composable<Routes.Splash> {
+        composable<SplashRoute> {
             SplashScreen { appState.navController.navigateToLogin() }
         }
         loginScreen(authRepository, appState, onShowSnackBar)
         navigation<AuthorizedRoute>(startDestination = HomeRoute) {
             homeScreen(noteRepository) {
-                // TODO - NoteNavigation
-//                appState.navActions.navigateToNote.invoke(it)
+                appState.navController.navigateToNote(it)
             }
-            composable<Routes.Note> {
-                val noteId = it.toRoute<Routes.Note>().noteId
+            composable<NoteRoute> {
+                val noteId = it.toRoute<NoteRoute>().noteId
                 val note = noteRepository.getNote(noteId)
                 NoteScreen(note.title, note.content) {
                     appState.navController.popBackStack()

@@ -33,7 +33,7 @@ import com.blankthings.baseapp.data.NoteRepositoryImpl
 import com.blankthings.baseapp.data.UserDataRepositoryImpl
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.TopDestinations
-import com.blankthings.baseapp.ui.rememberAppState
+import com.blankthings.baseapp.navigation.rememberAppState
 import com.blankthings.baseapp.utils.ErrorType
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

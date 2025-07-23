@@ -1,4 +1,4 @@
-package com.blankthings.baseapp.ui
+package com.blankthings.baseapp.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
