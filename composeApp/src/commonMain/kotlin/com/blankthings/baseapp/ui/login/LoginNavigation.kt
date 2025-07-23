@@ -23,7 +23,6 @@ fun NavGraphBuilder.loginScreen(
     appState: AppState,
     onShowSnackBar: (ErrorType, String) -> Unit
 ) {
-    println("NavGraphBuilder.loginScreen()")
     composable<LoginRoute> {
         val viewModel: LoginViewModel = viewModel(
             factory = LoginViewModel.provideFactory(authRepository)

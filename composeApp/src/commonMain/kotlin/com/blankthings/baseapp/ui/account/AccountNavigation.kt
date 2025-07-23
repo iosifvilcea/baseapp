@@ -1,7 +1,6 @@
 package com.blankthings.baseapp.ui.account
 
 import AccountScreen
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -24,7 +23,6 @@ fun NavGraphBuilder.accountScreen(
     onLogoutClicked: () -> Unit
 ) {
     composable<AccountRoute> {
-        val viewModel: AccountViewModel = viewModel()
         AccountScreen(onLogoutClicked)
     }
 }

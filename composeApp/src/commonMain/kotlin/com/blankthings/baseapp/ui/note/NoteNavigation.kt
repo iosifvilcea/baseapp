@@ -1,13 +1,11 @@
 package com.blankthings.baseapp.ui.note
 
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.blankthings.baseapp.data.UserDataRepository
+import androidx.navigation.toRoute
+import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.ui.home.BaseHomeRoute
-import com.blankthings.baseapp.ui.settings.SettingsScreen
-import com.blankthings.baseapp.ui.settings.SettingsViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -24,12 +22,12 @@ fun NavController.navigateToNote(noteId: Int) {
 }
 
 fun NavGraphBuilder.noteScreen(
-    userDataRepository: UserDataRepository
+    noteRepository: NoteRepository,
+    onBackClicked: () -> Unit
 ) {
     composable<NoteRoute> {
-        val viewModel: SettingsViewModel = viewModel(
-            factory = SettingsViewModel.Companion.provideFactory(userDataRepository)
-        )
-        SettingsScreen(viewModel)
+        val noteId = it.toRoute<NoteRoute>().noteId
+        val note = noteRepository.getNote(noteId)
+        NoteScreen(note.title, note.content, onBackClicked)
     }
 }
