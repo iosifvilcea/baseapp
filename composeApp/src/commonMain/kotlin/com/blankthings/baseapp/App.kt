@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -33,6 +34,7 @@ import com.blankthings.baseapp.data.UserDataRepositoryImpl
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.TopDestinations
 import com.blankthings.baseapp.ui.rememberAppState
+import com.blankthings.baseapp.utils.ErrorType
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -50,8 +52,9 @@ fun App() {
 
     val appState = rememberAppState(networkMonitor = networkMonitor)
     val snackbarHostState = remember { SnackbarHostState() }
-
+    var errorState = remember { mutableStateOf<Pair<ErrorType, String>?>(null) }
     val isSelected = appState.currentDestination?.isRouteTopDestination() == true
+
     MaterialTheme {
         Scaffold(
             topBar = {
@@ -77,9 +80,17 @@ fun App() {
                     authRepository = authRepository,
                     userDataRepository = userDataRepository,
                     noteRepository = noteRepository,
-                    navActions = appState.navActions,
-                    snackbarHostState = snackbarHostState
-                )
+                    appState = appState
+                ) { errorType, message ->
+                    errorState = mutableStateOf(errorType to message)
+                }
+
+                errorState.value?.let { (errorType, errorMessage) ->
+                    LaunchedEffect(errorType, errorMessage) {
+                        snackbarHostState.showSnackbar(errorMessage)
+                    }
+                }
+
                 val isOffline by appState.isOffline.collectAsStateWithLifecycle()
                 val notConnectedMessage = stringResource(Res.string.error_no_internet_connection)
                 LaunchedEffect(isOffline) {

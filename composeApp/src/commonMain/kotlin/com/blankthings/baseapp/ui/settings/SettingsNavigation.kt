@@ -6,13 +6,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.blankthings.baseapp.data.UserDataRepository
 import com.blankthings.baseapp.navigation.Routes
+import com.blankthings.baseapp.ui.home.AuthorizedRoute
 import kotlinx.serialization.Serializable
 
 @Serializable object SettingsRoute
 
 fun NavController.navigateToSettings() {
     navigate(SettingsRoute) {
-        popUpTo<Routes.Authorized> {
+        popUpTo<AuthorizedRoute> {
             saveState = true
         }
         launchSingleTop = true

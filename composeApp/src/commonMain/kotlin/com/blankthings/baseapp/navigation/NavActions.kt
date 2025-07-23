@@ -2,29 +2,20 @@ package com.blankthings.baseapp.navigation
 
 import androidx.navigation.NavHostController
 import com.blankthings.baseapp.model.Note
+import com.blankthings.baseapp.ui.home.AuthorizedRoute
 import com.blankthings.baseapp.ui.home.BaseHomeRoute
 import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface Routes {
     @Serializable object Splash: Routes
-    @Serializable object Login: Routes
-
-    @Serializable object Authorized: Routes
-
     @Serializable class Note(val noteId: Int): Routes
 }
 
 class NavActions(val navHostController: NavHostController) {
-    val navigateToLogin: () -> Unit = {
-        navHostController.navigate(Routes.Login) {
-            popUpTo<Routes.Login>()
-            launchSingleTop = true
-        }
-    }
 
     val navigateToAuthorized: () -> Unit = {
-        navHostController.navigate(Routes.Authorized)
+        navHostController.navigate(AuthorizedRoute)
     }
 
     val navigateToNote: (Int) -> Unit = {

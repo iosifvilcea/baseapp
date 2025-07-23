@@ -8,13 +8,14 @@ import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.navigation.Routes
 import kotlinx.serialization.Serializable
 
-@Serializable object BaseHomeRoute
 
+@Serializable object AuthorizedRoute
+@Serializable object BaseHomeRoute
 @Serializable object HomeRoute
 
 fun NavController.navigateToHome() {
     navigate(HomeRoute) {
-        popUpTo<Routes.Authorized> {
+        popUpTo<HomeRoute> {
             saveState = true
         }
         launchSingleTop = true

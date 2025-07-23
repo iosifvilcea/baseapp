@@ -8,8 +8,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.blankthings.baseapp.navigation.NavActions
-import com.blankthings.baseapp.navigation.Routes
 import com.blankthings.baseapp.utils.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,13 +20,9 @@ fun rememberAppState(
     networkMonitor: NetworkMonitor,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
 ): AppState {
-    val navAction = remember(navHostController) {
-        NavActions(navHostController)
-    }
     return remember(navHostController) {
         AppState(
             navController = navHostController,
-            navActions = navAction,
             networkMonitor = networkMonitor,
             coroutineScope = coroutineScope
         )
@@ -37,7 +31,6 @@ fun rememberAppState(
 
 class AppState(
     val navController: NavHostController,
-    val navActions: NavActions,
     networkMonitor: NetworkMonitor,
     coroutineScope: CoroutineScope,
 ) {
