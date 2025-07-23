@@ -7,6 +7,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import com.blankthings.baseapp.navigation.NavActions
 import com.blankthings.baseapp.navigation.TopDestinations
+import com.blankthings.baseapp.ui.home.navigateToHome
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -20,7 +21,7 @@ fun BottomNavBar(currentRoute: String, navActions: NavActions) {
                 selected = isSelected,
                 onClick = {
                     when (topDestination) {
-                        TopDestinations.HOME -> navActions.navigateToHome()
+                        TopDestinations.HOME -> navActions.navHostController::navigateToHome
                         TopDestinations.ACCOUNT -> navActions.navigateToAccount()
                         TopDestinations.SETTINGS -> navActions.navigateToSettings()
                     }

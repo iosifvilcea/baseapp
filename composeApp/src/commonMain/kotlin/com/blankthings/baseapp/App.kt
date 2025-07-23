@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
 import baseapp.composeapp.generated.resources.Res
 import baseapp.composeapp.generated.resources.account
 import baseapp.composeapp.generated.resources.app_name
@@ -33,7 +34,6 @@ import com.blankthings.baseapp.data.NoteRepositoryImpl
 import com.blankthings.baseapp.data.UserDataRepositoryImpl
 import com.blankthings.baseapp.navigation.NavigationHost
 import com.blankthings.baseapp.navigation.Routes
-import com.blankthings.baseapp.navigation.TopDestinations
 import com.blankthings.baseapp.ui.rememberAppState
 import com.blankthings.baseapp.utils.Constants
 import org.jetbrains.compose.resources.stringResource
@@ -57,6 +57,15 @@ fun App() {
         .currentBackStackEntryFlow
         .collectAsState(initial = appState.navController.currentBackStackEntry)
         .value?.destination?.route ?: Routes.Login.toString()
+
+    val dest = appState.navController
+        .currentBackStackEntryFlow
+        .collectAsState(initial = appState.navController.currentBackStackEntry)
+        .value?.destination
+
+    println("Route:" + dest?.route)
+    println("parent: " + dest?.parent?.route)
+    dest?.hierarchy?.forEach { println("Hierarchy: " + it.route) }
 
     val snackbarHostState = remember { SnackbarHostState() }
 

@@ -18,8 +18,8 @@ import com.blankthings.baseapp.data.NoteRepository
 import com.blankthings.baseapp.data.UserDataRepository
 import com.blankthings.baseapp.ui.NoteScreen
 import com.blankthings.baseapp.ui.account.AccountViewModel
-import com.blankthings.baseapp.ui.home.HomeScreen
-import com.blankthings.baseapp.ui.home.HomeViewModel
+import com.blankthings.baseapp.ui.home.HomeRoute
+import com.blankthings.baseapp.ui.home.homeScreen
 import com.blankthings.baseapp.ui.login.LoginRoute
 import com.blankthings.baseapp.ui.login.LoginViewModel
 import com.blankthings.baseapp.ui.settings.SettingsScreen
@@ -33,8 +33,9 @@ fun NavigationHost(
     navActions: NavActions,
     snackbarHostState: SnackbarHostState
 ) {
+    val navController = navActions.navHostController
     NavHost(
-        navController = navActions.navHostController,
+        navController = navController,
         startDestination = Routes.Splash,
         modifier = Modifier.fillMaxSize()
     ) {
@@ -53,6 +54,9 @@ fun NavigationHost(
                 snackbarHostState = snackbarHostState
             )
         }
+        homeScreen(noteRepository) {
+            navActions.navigateToNote.invoke(it)
+        }
         composable<Routes.CreateAccount> {
             CreateAccountScreen()
         }
@@ -61,15 +65,7 @@ fun NavigationHost(
                 navActions.navigateToLogin.invoke()
             }
         }
-        navigation<Routes.Authorized>(startDestination = Routes.Home) {
-            composable<Routes.Home> {
-                val viewModel: HomeViewModel = viewModel(
-                    factory = HomeViewModel.provideFactory(noteRepository)
-                )
-                HomeScreen(viewModel.getNotes()) { noteId ->
-                    navActions.navigateToNote.invoke(noteId)
-                }
-            }
+        navigation<Routes.Authorized>(startDestination = HomeRoute) {
             composable<Routes.Note> {
                 val noteId = it.toRoute<Routes.Note>().noteId
                 val note = noteRepository.getNote(noteId)
