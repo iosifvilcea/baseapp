@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import baseapp.composeapp.generated.resources.Res
+import baseapp.composeapp.generated.resources.account
 import baseapp.composeapp.generated.resources.logout
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -25,7 +26,7 @@ fun AccountScreen(onLogoutClicked: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Account Screen",
+            text = stringResource(Res.string.account),
             modifier = Modifier.wrapContentSize(),
             textAlign = TextAlign.Center
         )
