@@ -15,8 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.blankthings.baseapp.component.BaCard
+import com.blankthings.baseapp.model.Category
 import com.blankthings.baseapp.model.Note
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 @Composable
 fun HomeScreen(notes: List<Note>, onNoteClicked: (Int) -> Unit) {
@@ -38,11 +41,12 @@ fun HomeScreen(notes: List<Note>, onNoteClicked: (Int) -> Unit) {
     }
 }
 
+@OptIn(ExperimentalTime::class)
 @Preview
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {
-        val notes = mutableListOf(Note(0, "title", "content"))
+        val notes = mutableListOf(Note(0, "title", "content", Category.NOW, Instant.DISTANT_PAST))
         HomeScreen(notes) {}
     }
 }

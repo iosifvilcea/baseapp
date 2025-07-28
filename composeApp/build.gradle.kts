@@ -50,6 +50,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.navigation.compose)
             implementation(libs.androidx.dataStore.preferences)
+            implementation(libs.androidx.room.runtime)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization)
             implementation(libs.ktor.client.core)
@@ -92,6 +93,10 @@ android {
 }
 
 dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
     implementation(libs.androidx.annotation.jvm)
     debugImplementation(compose.uiTooling)
 }
