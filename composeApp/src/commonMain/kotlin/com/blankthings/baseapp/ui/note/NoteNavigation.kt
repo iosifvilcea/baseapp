@@ -9,9 +9,9 @@ import com.blankthings.baseapp.ui.home.BaseHomeRoute
 import kotlinx.serialization.Serializable
 
 @Serializable
-class NoteRoute(val noteId: Int)
+class NoteRoute(val noteId: Long)
 
-fun NavController.navigateToNote(noteId: Int) {
+fun NavController.navigateToNote(noteId: Long) {
     navigate(NoteRoute(noteId)) {
         popUpTo<BaseHomeRoute> {
             saveState = true

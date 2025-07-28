@@ -22,7 +22,7 @@ import com.blankthings.baseapp.model.Note
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun BaCard(id: Int, title: String, content: String, onNoteClicked: (Int) -> Unit) {
+fun BaCard(id: Long, title: String, content: String, onNoteClicked: (Long) -> Unit) {
     Card(
         modifier = Modifier.clickable(onClick = { onNoteClicked(id) })
             .padding(10.dp)

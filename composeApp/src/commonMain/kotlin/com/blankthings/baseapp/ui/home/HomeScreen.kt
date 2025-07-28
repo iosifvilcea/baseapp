@@ -22,7 +22,7 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 @Composable
-fun HomeScreen(notes: List<Note>, onNoteClicked: (Int) -> Unit) {
+fun HomeScreen(notes: List<Note>, onNoteClicked: (Long) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,7 +46,7 @@ fun HomeScreen(notes: List<Note>, onNoteClicked: (Int) -> Unit) {
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {
-        val notes = mutableListOf(Note(0, "title", "content", Category.NOW, Instant.DISTANT_PAST))
+        val notes = mutableListOf(Note(0, "title", "content", Category.NOW, Instant.DISTANT_PAST.toString()))
         HomeScreen(notes) {}
     }
 }

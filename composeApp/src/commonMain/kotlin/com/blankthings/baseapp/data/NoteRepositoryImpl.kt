@@ -14,56 +14,56 @@ class NoteRepositoryImpl : NoteRepository {
             title = "Note 1",
             content = "Content 1",
             category = Category.NOW,
-            date = Clock.System.now()
+            date = Clock.System.now().toString()
         ),
         Note(
             id = 2,
             title = "Note 2",
             content = "Content 2",
             category = Category.LATER,
-            date = Clock.System.now()
+            date = Clock.System.now().toString()
         ),
         Note(
             id = 3,
             title = "Note 3",
             content = "Content 3",
             category = Category.MAYBE,
-            date = Clock.System.now()
+            date = Clock.System.now().toString()
         ),
         Note(
             4,
             "Note 4",
             "Content 4",
             category = Category.NOW,
-            date = Clock.System.now()
+            date = Clock.System.now().toString()
         ),
         Note(
             5,
             "Note 5",
             "Content 5",
             category = Category.MAYBE,
-            date = Clock.System.now()
+            date = Clock.System.now().toString()
         ),
         Note(
             6,
             "Note 6",
             "Content 6",
             category = Category.LATER,
-            date = Clock.System.now()
+            date = Clock.System.now().toString()
         ),
         Note(
             7,
             "Note 7",
             "Content 7",
             category = Category.LATER,
-            date = Clock.System.now()
+            date = Clock.System.now().toString()
         ),
         Note(
             8,
             "Note 8",
             "Content 8",
             category = Category.NOW,
-            date = Clock.System.now()
+            date = Clock.System.now().toString()
         ),
     )
 
@@ -81,7 +81,7 @@ class NoteRepositoryImpl : NoteRepository {
         notes.remove(note)
     }
 
-    override fun getNote(noteId: Int): Note {
-        return notes.firstOrNull { it.id == noteId } ?: Note(-1, "", "", Category.NONE, Instant.DISTANT_PAST)
+    override fun getNote(noteId: Long): Note {
+        return notes.firstOrNull { it.id == noteId } ?: Note(-1, "", "", Category.NONE, Instant.DISTANT_PAST.toString())
     }
 }

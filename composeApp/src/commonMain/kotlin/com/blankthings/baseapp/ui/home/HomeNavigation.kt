@@ -24,7 +24,7 @@ fun NavController.navigateToHome() {
 
 fun NavGraphBuilder.homeScreen(
     noteRepository: NoteRepository,
-    onNoteClicked: (Int) -> Unit
+    onNoteClicked: (Long) -> Unit
 ) {
     composable<HomeRoute> {
         val viewModel: HomeViewModel = viewModel(
