@@ -17,13 +17,14 @@ import androidx.compose.ui.unit.dp
 import com.blankthings.baseapp.component.BaCard
 import com.blankthings.baseapp.model.Category
 import com.blankthings.baseapp.model.Note
+import kotlinx.coroutines.flow.Flow
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 @OptIn(ExperimentalTime::class)
 @Composable
-fun HomeScreen(notes: List<Note>, onNoteClicked: (Long) -> Unit) {
+fun HomeScreen(homeUiState: HomeUiState, onNoteClicked: (Long) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -36,7 +37,7 @@ fun HomeScreen(notes: List<Note>, onNoteClicked: (Long) -> Unit) {
                 textAlign = TextAlign.Center
             )
         }
-        items(notes) { note ->
+        items(homeUiState.notes) { note ->
             BaCard(note.id, note.title, note.content, onNoteClicked)
         }
     }
@@ -47,13 +48,17 @@ fun HomeScreen(notes: List<Note>, onNoteClicked: (Long) -> Unit) {
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {
-        val notes = mutableListOf(Note(
-            0,
-            "title",
-            "content",
-            Category.NOW,
-            Instant.DISTANT_PAST.toEpochMilliseconds()
-        ))
-        HomeScreen(notes) {}
+        val homeUiState = HomeUiState(
+            notes = mutableListOf(
+                Note(
+                    0,
+                    "title",
+                    "content",
+                    Category.NOW,
+                    Instant.DISTANT_PAST.toEpochMilliseconds()
+                )
+            )
+        )
+        HomeScreen(homeUiState) {}
     }
 }

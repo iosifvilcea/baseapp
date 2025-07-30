@@ -2,13 +2,15 @@ package com.blankthings.baseapp.data
 
 import com.blankthings.baseapp.model.Category
 import com.blankthings.baseapp.model.Note
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 @OptIn(ExperimentalTime::class)
 class NoteRepositoryImpl : NoteRepository {
-    override val notes: MutableList<Note> = mutableListOf(
+    private val notes: MutableList<Note> = mutableListOf(
         Note(
             id = 1,
             title = "Note 1",
@@ -84,4 +86,6 @@ class NoteRepositoryImpl : NoteRepository {
     override fun getNote(noteId: Long): Note {
         return notes.firstOrNull { it.id == noteId } ?: Note(-1, "", "", Category.NONE, Instant.DISTANT_PAST.toEpochMilliseconds())
     }
+
+    override fun getAllNotes(): Flow<List<Note>> = flowOf(notes.sortedBy { it.date })
 }
