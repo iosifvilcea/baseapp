@@ -21,6 +21,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
+@OptIn(ExperimentalTime::class)
 @Composable
 fun HomeScreen(notes: List<Note>, onNoteClicked: (Long) -> Unit) {
     LazyColumn(
@@ -30,7 +31,7 @@ fun HomeScreen(notes: List<Note>, onNoteClicked: (Long) -> Unit) {
     ) {
         item {
             Text(
-                text = "Home Screen",
+                text = Instant.fromEpochMilliseconds(-1).toString(),
                 modifier = Modifier.fillMaxWidth().padding(10.dp),
                 textAlign = TextAlign.Center
             )
@@ -46,7 +47,13 @@ fun HomeScreen(notes: List<Note>, onNoteClicked: (Long) -> Unit) {
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {
-        val notes = mutableListOf(Note(0, "title", "content", Category.NOW, Instant.DISTANT_PAST.toString()))
+        val notes = mutableListOf(Note(
+            0,
+            "title",
+            "content",
+            Category.NOW,
+            Instant.DISTANT_PAST.toEpochMilliseconds()
+        ))
         HomeScreen(notes) {}
     }
 }
