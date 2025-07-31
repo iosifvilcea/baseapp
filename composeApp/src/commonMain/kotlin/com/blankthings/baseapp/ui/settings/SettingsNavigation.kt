@@ -1,5 +1,7 @@
 package com.blankthings.baseapp.ui.settings
 
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -27,6 +29,7 @@ fun NavGraphBuilder.settingsScreen(
         val viewModel: SettingsViewModel = viewModel(
             factory = SettingsViewModel.provideFactory(userDataRepository)
         )
-        SettingsScreen(viewModel)
+        val settingsUiState: SettingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
+        SettingsScreen(settingsUiState, viewModel::updateDarkThemeConfig)
     }
 }

@@ -13,8 +13,6 @@ import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 class HomeViewModel(private val noteRepository: NoteRepository): ViewModel() {
-    fun getNotes() = noteRepository.getAllNotes()
-
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState
 
