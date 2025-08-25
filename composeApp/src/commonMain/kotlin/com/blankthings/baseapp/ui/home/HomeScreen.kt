@@ -1,10 +1,8 @@
 package com.blankthings.baseapp.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -17,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.blankthings.baseapp.component.BaCard
 import com.blankthings.baseapp.model.Category
 import com.blankthings.baseapp.model.Note
-import kotlinx.coroutines.flow.Flow
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
