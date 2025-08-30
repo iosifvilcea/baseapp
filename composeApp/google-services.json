@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "227237079710",
+    "project_id": "baseapp-d8991",
+    "storage_bucket": "baseapp-d8991.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227237079710:android:d199dee65ff7bcf520698f",
+        "android_client_info": {
+          "package_name": "com.blankthings.baseapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwx6-BFWNnWJIor61YSIOCRGZUx3JWDyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
