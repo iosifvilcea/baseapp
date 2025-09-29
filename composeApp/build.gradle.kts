@@ -37,6 +37,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.messaging)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
